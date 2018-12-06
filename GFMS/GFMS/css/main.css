@@ -1,0 +1,612 @@
+﻿/*页面主体*/
+.BODY
+{
+    FONT-FAMILY: "宋体";
+    FONT-SIZE: 9pt;
+    BACKGROUND-COLOR: #ffffff;
+    COLOR: #000000;
+    LINE-HEIGHT: 150%;
+    MARGIN-TOP: 1px;
+    MARGIN-LEFT: 0px;
+    MARGIN-RIGHT: 0px;
+}
+/*标签字体*/
+.tab
+{
+    FONT-FAMILY: "宋体";
+    FONT-SIZE: 9pt;
+    BACKGROUND-COLOR: #E1FF07;
+    COLOR: #000000;
+    LINE-HEIGHT: 150%;
+    MARGIN-TOP: 1px;
+    MARGIN-LEFT: 0px;
+    MARGIN-RIGHT: 0px;
+}
+
+/*页面标题样式*/
+.titlebar{
+	font-family:"黑体";
+	FONT-SIZE: 10pt;
+	color: #ffffff;
+	background-color: #2951AD;
+	width: 100%;
+	padding-top: 0px;
+	padding-Left: 0px;
+	margin-bottom:0px;
+	
+}
+/*表格框架*/
+TABLE.tableframe{
+    background-color: #FFFFFF;
+    margin-top: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:#7C9CCF;
+    border-collapse:collapse
+}
+/*表格标题栏样式*/
+td.ListCellTitle{
+   border-style: solid;
+   border-width: 1px 1px 1px 0px;
+   border-color:#999999;
+   padding:2px 2px 2px 2px;
+}
+/*表格内容行样式*/
+td.ListCellRow
+{
+  border-style: solid;
+	border-width: 1px;
+	border-color:#999999;
+	padding:0px 4px 0px 4px;
+}
+/*翻页控件样式*/
+Td.listtail
+{
+    FONT-SIZE: 9pt;
+    BACKGROUND: #C6D7EF;
+    BORDER-BOTTOM: #999999 1px solid;
+}
+
+/*表格输入框*/
+.pagecontenttable{
+  MARGIN-TOP:15px;
+  margin-BOTTOM:5px;
+	background-color: #F7FBFF;
+	border-style: solid;
+	border-width: 1px;
+	border-color:#9C9C9C;
+	border-collapse:collapse;
+}
+/*按钮信息 黄色*/
+INPUT.button
+{
+    Height:20px;
+    BACKGROUND-COLOR: #FFEC8B;
+    COLOR: #000080;
+    LINE-HEIGHT: 9pt;
+    PADDING-LEFT: 0px;
+    PADDING-RIGHT: 0px;
+    PADDING-TOP: 2px;
+    PADDING-BOTTOM: 2px;
+    CURSOR: hand;
+    border-width:1px;
+    border-style:solid;
+    FONT-FAMILY: "宋体";
+    FONT-SIZE: 9pt;
+}
+
+INPUT.text {
+	
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: "宋体";
+  font-size: 9pt;
+  HEIGHT:18px;
+  border: 0;
+  border: solid 1px #888888;
+  background-color: #ffffdd;
+  ime-mode:active;
+}
+/*输入框 作用？？*/
+INPUT.input
+{
+    BACKGROUND-COLOR: transparent;
+    BORDER-STYLE:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    border-color:#2951AD;
+    color:#ffffff;
+    HEIGHT:18px;
+    LEFT: 0px;
+    TOP: 0px;
+    VERTICAL-ALIGN: center
+}
+
+/*只读输入框*/
+INPUT.inputreadonly
+{
+    BACKGROUND-COLOR: transparent;
+    BORDER-STYLE:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    border-color:#888888;
+    color:#008888;
+    LEFT: 0px;
+    TOP: 0px;
+    VERTICAL-ALIGN: center
+}
+
+/*分区设置*/
+DIV
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+HR
+{
+    COLOR: #7FB3CC;
+}
+
+HR.row
+{
+    BORDER-TOP: 1px;
+    COLOR:#EEEEEE;
+}
+
+PRE
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+TD
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+TH
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+#TABLE设置
+TABLE
+{
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%;
+}
+
+TABLE.dataclass
+{
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%;
+}
+
+TD.title
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #D6E7EF;
+    BORDER-BOTTOM: black 1px solid;
+    BORDER-TOP: white 1px solid;
+    COLOR: #228b22;
+    LINE-HEIGHT: 150%
+}
+
+TR.row
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #EEEEEE;
+    BORDER-BOTTOM: #708090 1cm solid;
+    LINE-HEIGHT: 150%
+}
+TD.row
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #EFF7FF;
+    BORDER-BOTTOM: #708090 1px groove;
+    LINE-HEIGHT: 150%
+}
+TD.row1
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #EEEEEE;
+    LINE-HEIGHT: 150%
+}
+TD.left
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #E7F3F7;
+    BORDER-BOTTOM: #708090 1px groove;
+    LINE-HEIGHT: 150%
+}
+TD.leftbak
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #00b8d8;
+    BORDER-BOTTOM: #708090 1px groove;
+    LINE-HEIGHT: 150%
+}
+TD.right
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #CAF5FB;
+    LINE-HEIGHT: 150%
+}
+TD.bottom
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #D6E7EF;
+    BORDER-BOTTOM: black 1px solid;
+    LINE-HEIGHT: 150%;
+    TEXT-ALIGN: right;
+}
+P.title
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 10pt;
+    FONT-WEIGHT: bold
+}
+
+P
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+LI
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+CAPTION
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+INPUT
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+}
+
+SELECT
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%;
+}
+
+TEXTAREA
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+OPTION
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%;
+
+}
+
+FORM
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+
+UL
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    LINE-HEIGHT: 150%
+}
+LI
+{
+    LIST-STYLE: disc
+}
+.boxborder
+{
+    BACKGROUND-COLOR: #ffffff;
+    BORDER-BOTTOM: #9999ff 1px solid;
+    BORDER-LEFT: #9999ff 0px solid;
+    BORDER-RIGHT: #9999ff 0px solid;
+    BORDER-TOP: #00cc00 0px solid;
+    COLOR: #ff6600
+}
+
+.tabletitletext{
+	font: bold ;
+	font-family:"Arial";
+}
+TABLE.tabletoolbar{
+	margin-top: 2px;
+	margin-bottom: 2px;
+	border-style: double;
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+	border-color:#253e82;
+	border-collapse:collapse;
+	padding-bottom:3px;
+}
+
+/*蓝色*/
+TR.Listtitle
+{
+    font: bold ;
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #8CAAE7;
+    BORDER-BOTTOM: #7C9CCF 1px solid;
+    BORDER-TOP: #7C9CCF 1px solid;
+    COLOR: #ffffff;
+    text-align:center;
+    vertical-align:center;
+    height:18px;
+}
+
+/*和上面的TR.Listtitle效果一样*/
+TR.ListtitleBorder
+{
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #8CAAE7;
+    BORDER-BOTTOM: #7C9CCF 1px solid;
+    BORDER-TOP: #7C9CCF 1px solid;
+    BORDER-Left: #7C9CCF 1px solid;
+    BORDER-Right: #7C9CCF 1px solid;
+    COLOR: #ffffff;
+    text-align:center;
+    vertical-align:center;
+    height:18px;
+}
+
+/*很淡很淡的蓝*/
+TR.Listrow2
+{
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #EBF1FA;
+}
+/*很淡很淡的青中带黄*/
+TR.Listrow1
+{
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #F1F1F1;
+}
+/*灰色偏黑*/
+TR.voucherrow
+{
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #C0C0C0;
+}
+/*灰色带青*/
+TR.Listrow1_1
+{
+    FONT-FAMILY: Arial;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #dFdFdF;
+}
+
+
+
+TR.InputFrameLine{
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-family:'Arial';
+  font-size:9pt;
+}
+TR.InputFrameButtonLine{
+	padding-top: 5px;
+	padding-bottom: 1px;
+	font-family:'Arial';
+  font-size:9pt;
+}
+TD.InputLabelCell{
+	font: bold ;
+  font-family:'宋体';
+  font-size:9pt;
+  color:black;
+  padding-top: 5px;
+  padding-left: 5px;
+	padding-right: 10px;
+	Text-align:right;
+	vertical-align:top;
+	border-style: solid;
+	border-width: 0px;
+	border-color:#9C9C9C;
+}
+TD.InputAreaCell{
+	border-style: solid;
+	border-width: 0px 0px 1px 0px;
+	border-color:#9C9C9C;
+}
+
+textarea.text {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: "宋体";
+  font-size: 9pt;
+  HEIGHT:18px;
+  border: 0;
+  border: solid 1px #888888;
+  background-color: #ffffdd;
+  ime-mode:active;
+}
+textarea.InputArea
+{
+    BACKGROUND-COLOR: #ffffff;
+    BORDER-STYLE:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    border-color:#888888;
+
+}
+
+SELECT.text {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: "宋体";
+  font-size: 9pt;
+  HEIGHT:18px;
+  border-bottom: solid 1px #dddddd;
+  border-left: solid 1px #444444;
+  border-right: solid 1px #dddddd;
+  border-top: solid 1px #444444;
+  background-color: #ffffdd;
+}
+select.Inputselect
+{
+    BACKGROUND-COLOR: #ffffff;
+    BORDER-STYLE:solid solid solid solid;
+    border-width:1px 1px 1px 1px;
+    border-color:#888888;
+}
+
+.LinkText
+{
+	COLOR:#0065CE;
+	CURSOR:HAND;
+}
+.getdate
+{
+    cursor:hand;
+    behavior:url(css/getdate_vbs.htc);
+}
+
+/*list control样式:标题*/
+.listTitle {
+	font: bold ;
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 9pt;
+    BACKGROUND: #8CAAE7;
+    BORDER-BOTTOM: #7C9CCF 1px solid;
+    BORDER-TOP: #7C9CCF 1px solid;
+    COLOR: #ffffff;
+    text-align:center;
+    vertical-align:center;
+    height:18px;
+}
+/*list control样式:序列号*/
+.listSN {
+	background-color:#005555;
+	border-width:1; 
+	border-style:solid; 
+	border-left-color:#DDDDDD; 
+	border-top-color:#DDDDDD; 
+	border-right-color:#AAAAAA; 
+	border-bottom-color:#AAAAAA;
+	height:100%
+}
+/*list control样式:输入样式*/
+.listRecord{
+	background-color:#dFdFdF; 	
+	cursor:hand; 
+	font-size:9pt; 
+	color:blue
+
+	border-style: solid;
+	border-width: 1px;
+	border-color:#999999;
+	padding:0px 4px 0px 4px;
+}
+/*list control样式:活动行*/
+ 
+.listActiveLine{  
+	font-size: 9pt; 
+	font-style: normal; 
+	font-weight: normal; 
+	color:blue; 
+	border-style: none
+	
+}
+.listCellRow
+{
+  border-style: solid;
+	border-width: 1px;
+	border-color:#999999;
+	padding:0px 4px 0px 4px;
+}
+.top01 {
+	color: #FFFFFF;
+	padding-top: 3px;
+	padding-left: 10px;
+	height: 24px;
+}
+.tb01 {
+	border: 1px solid #CCCCCC;
+	line-height: 150%;
+	padding-left: 4px;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	color: #2F3E55;
+}
+.top02 {
+	font-weight: bold;
+	background-color: #D7DFE8;
+}
+.tb02 {
+	padding-top: 3px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+}
+.tb03 {
+	background-color: #F5F5F5;
+	padding-top: 3px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	padding-left: 4px;
+}
+A:link {
+	color: #333333;
+    text-decoration:none;
+}
+A:visited {
+	color: #333333;
+    text-decoration:none;
+}
+A:hover {
+	color: #333333;
+	text-decoration:underline;
+}
+.nr01 {
+	line-height: 140%;
+}
+.pic01 {
+	background-color: #F2F2F2;
+	padding: 6px;
+	border: 1px solid #CCCCCC;
+}
+.tScroll {
+	overflow:auto;
+	border: 1px #ffffff solid;
+	background-color: #ffffff;
+	overflow-x:hidden;
+	height:450px;
+	cursor: default;
+	scrollbar-base-color:#cccccc;
+}

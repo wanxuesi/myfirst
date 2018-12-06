@@ -1,0 +1,18 @@
+#
+#Wed Nov 04 12:36:25 CST 2015
+springDaoFile=
+daoSFId=
+configFile=/GFMS/src/hibernate.cfg.xml
+sessionFactoryId=
+profile=
+libInstallFolder=/GFMS/WEB-INF/lib
+addLibs2Classpath=true
+jndiPath=
+genBasicCompId=false
+addLibs2Project=true
+keyGenerator=identity
+createConfigFile=true
+basePersistenceClass=
+version=3.0
+useJavaTypes=false
+reSettingsFile=/GFMS/hibernate.reveng.xml

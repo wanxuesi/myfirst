@@ -1,0 +1,144 @@
+/******************************************************************************
+ * 文件名：banner.css
+ * 页面导航条使用的主要默认元素的格式定义文件，一般在jsp文件中通过：
+ * <LINK href="theme/banner.css" rel="stylesheet" type="text/css">
+ * 引用本文件的格式定义。
+ ******************************************************************************
+ */
+
+BODY.nav {
+	margin: 0px;
+}
+
+/******************************************************************************
+ * 导航条主表格的格式定义，导航条的所有内容放在此表格内。
+ * 导航条的默认格式定义,一般把一组导航按钮或超级链接放在导航条之内，可以利用div或span
+ * 元素进行格式限制。
+ ******************************************************************************
+ */
+TABLE.nav {
+    background-color: #009FA7;
+	font-family: 宋体, Arial;
+	font-size: 9pt;
+}
+
+/******************************************************************************
+ * 导航条表格的标题单元格默认格式定义
+ ******************************************************************************
+ */
+TH.nav {
+	font-family: 宋体, Arial;
+	font-size: 9pt;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+/******************************************************************************
+ * 导航条表格的单元格默认格式定义
+ ******************************************************************************
+ */
+TD.nav {
+	font-family: 宋体, Arial;
+	font-size: 9pt;
+	text-align: left;
+	vertical-align: middle;
+}
+
+/******************************************************************************
+ * 导航条内部的按钮格式定义,用来限制导航条内按钮的格式。
+ ******************************************************************************
+ */
+.navButton {
+    background-color: #009FA7;
+	vertical-align: middle;
+	text-align: center;
+	color: white;
+}
+
+/******************************************************************************
+ * 导航条内部的按钮或超连接之间的分割符，页面上部导航条用在背景图形上。
+ ******************************************************************************
+ */
+TD.upperHeadDivider {
+    background-color: #009FA7;
+	BACKGROUND-POSITION: 50% 50%;
+	BACKGROUND-IMAGE: url("../images/upper-head-divider.gif");
+	BACKGROUND-REPEAT: no-repeat;
+}
+
+/******************************************************************************
+ * 导航条内部的按钮或超连接之间的分割符，用在导航条背景图形外,用在页面上部的导航条上。
+ ******************************************************************************
+ */
+TD.headDivider {
+    background-color: #009FA7;
+	BACKGROUND-POSITION: 50% 50%;
+	BACKGROUND-IMAGE: url("../images/head-divider.gif");
+	BACKGROUND-REPEAT: no-repeat;
+}
+
+/******************************************************************************
+ * 导航条内部的按钮或超连接之间的分割符，用在页面下部的导航条上。
+ ******************************************************************************
+ */
+TD.footerDivider {
+    background-color: #009FA7;
+	BACKGROUND-POSITION: 50% 50%;
+	BACKGROUND-IMAGE: url("../images/footer-divider.gif");
+	BACKGROUND-REPEAT: no-repeat
+}
+
+/******************************************************************************
+ * 导航条内部的普通表格文字。
+ ******************************************************************************
+ */
+TD.plainText {
+    font-family: 宋体, Arial, Times New Roman;
+	font-size: 9pt;
+	color: #666;	
+    vertical-align: bottom;
+	text-align: left;
+	letter-spacing: normal;
+}
+
+/******************************************************************************
+ * 导航条内部的超连接
+ ******************************************************************************
+ */
+A.navLink {
+    background-color: #009FA7;
+	COLOR: #293d6b;
+	WHITE-SPACE: nowrap;
+	TEXT-DECORATION: none;
+}
+
+A.navLink:link {
+    background-color: #009FA7;
+	COLOR: #293d6b;
+	WHITE-SPACE: nowrap;
+	TEXT-DECORATION: none;
+}
+A.navLink:visited {
+    background-color: #009FA7;
+	COLOR: #293d6b;
+	WHITE-SPACE: nowrap;
+	TEXT-DECORATION: none;
+}
+A.navLink:hover {
+    background-color: #009FA7;
+	COLOR: #293d6b;
+	WHITE-SPACE: nowrap;
+	TEXT-DECORATION: underline;
+}
+
+/******************************************************************************
+ * 空格占位符
+ ******************************************************************************
+ */
+.spacer {
+    background-color: #009FA7;
+	COLOR: #98b1c4;
+	WHITE-SPACE: nowrap;
+}
+

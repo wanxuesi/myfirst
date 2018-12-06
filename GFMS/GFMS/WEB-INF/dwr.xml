@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://www.getahead.ltd.uk/dwr/dwr20.dtd"> 
+ 
+<dwr> 
+  <allow> 
+  <create creator="new" javascript="gpmcbo">  
+      <param name="class" value="com.fuguo.bo.GpmcBO"/>        
+    </create>
+    
+    <create creator="new" javascript="mygpmcbo">  
+      <param name="class" value="com.fuguo.bo.MygpmcBO"/>        
+    </create>
+    <create creator="new" javascript="listbo">  
+      <param name="class" value="com.fuguo.bo.ListBO"/>        
+    </create>
+    <create creator="new" javascript="databo">  
+      <param name="class" value="com.fuguo.bo.DataBO"/>        
+    </create>
+    <create creator="new" javascript="gpylbo">  
+      <param name="class" value="com.fuguo.bo.GpylBO"/>        
+    </create>
+    <create creator="new" javascript="lsjgbo">  
+      <param name="class" value="com.fuguo.bo.LsjgBO"/>        
+    </create>
+   <create creator="new" javascript="danweibo">  
+      <param name="class" value="com.fuguo.bo.DanweiBO"/>        
+    </create>   
+     <create creator="new" javascript="lxbo">  
+      <param name="class" value="com.fuguo.bo.LxBO"/>        
+    </create>   
+    <create creator="new" javascript="userdao">  
+      <param name="class" value="com.fuguo.dao.UserDAO"/>        
+    </create>
+    <convert converter="bean" match="com.fuguo.dto.DwrDTO">
+	  <param name="include" value="id,name" />
+	</convert>
+    <convert converter="bean" match="com.fuguo.dto.UserDTO">
+	  <param name="include" value="userId,userName,pwd" />
+	</convert>
+	
+  </allow> 
+</dwr> 

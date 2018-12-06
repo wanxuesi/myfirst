@@ -1,0 +1,55 @@
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script> 
+<script type="text/javascript" src="option_check.js"></script> 
+<style type="text/css"> 
+.hover 
+{ 
+background-color: Blue; 
+color: White; 
+cursor:hand;
+} 
+</style> 
+<script type="text/javascript"> 
+$(function(){ 
+	Jselect($("#txt_wbk"),{ 
+	bindid:'txt_wbk', //可绑定到按钮上，此处为点击文本框显示下拉框 
+	hoverclass:'hover', 
+	optionsbind:function(){return hqhtml();} 
+});
+}) 
+
+var option = new Array('第一项','第二项','第三项','第四项','第五项','第六项');
+//	option.del(3);
+
+
+Array.prototype.del=function(n) {  //n表示第几项，从0开始算起。
+//prototype为对象原型，注意这里为对象增加自定义方法的方法。
+  if(n<0)  //如果n<0，则不进行任何操作。
+    return this;
+  else
+    return this.slice(0,n).concat(this.slice(n+1,this.length));
+    /*
+      concat方法：返回一个新数组，这个新数组是由两个或更多数组组合而成的。
+      　　　　　　这里就是返回this.slice(0,n)/this.slice(n+1,this.length)
+     　　　　　　组成的新数组，这中间，刚好少了第n项。
+      slice方法： 返回一个数组的一段，两个参数，分别指定开始和结束的位置。
+    */
+}
+
+
+function hqhtml(){//此处可在数据库中取值后拼接html，注意：预选项加上 lang='checked'属性 
+var optionshtml="<table style='width:100%; background-color: #fff; border:1px solid #000;' cellpadding=\"0\" cellspacing=\"0\" >";
+					for(var i=0;i<option.length;i++){
+    　　　　　　　　　　optionshtml+="<tr><td style='width:20px'><input type=\"checkbox\" value='"+i+"' /></td><td>"+option[i]+"</td></tr>"
+					}
+					optionshtml+="</table>"; 
+
+return optionshtml; 
+}
+
+</script> 
+<div>
+	<input id="txt_wbk" type="text" style="width: 200px;cursor:hand;margin-top:-15;" readonly="readonly"/>
+	<span style="border: 5px solid #fff; border-top: 5px solid #000; width:0px;margin-top:15px;"></span>
+	<br/>
+	<img src="selectBtn.jpg" onclick="javascript:document.getElementById('txt_wbk').click()" style="margin-left:-25px;cursor:hand"/>
+</div>

@@ -1,0 +1,205 @@
+<html>
+<title>树的列表单</title>
+<link href="../css/bs.css" rel="stylesheet" type="text/css">
+<SCRIPT language=javascript src="../js/bs.js"></SCRIPT>
+<SCRIPT language=javascript src="../js/bsrightmenu.js"></SCRIPT>
+<SCRIPT language=javascript src="../js/treeview.js"></SCRIPT>
+<SCRIPT language=javascript>
+
+var seq=0;
+var Test_tree = new BSTreeView("Test_tree", "frmBusiness", false, "", "");
+Test_tree.setImagesPath("../images/");
+Test_tree.setShowLine(true);
+function  jyjlQueryIndex(){
+  document.getElementById("frmBusiness").action="../view/jilu/jiluquery.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+function  ykIndex(){
+  document.getElementById("frmBusiness").action="../ykfxShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+function  dqgpxxIndex(){
+  document.getElementById("frmBusiness").action="../orderShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+function sjfxjiflIndex(){
+  document.getElementById("frmBusiness").action="../jiflShowBT.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+function  dataIndex(){
+  document.getElementById("frmBusiness").action="../dataShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+function  gpylIndex(){
+  document.getElementById("frmBusiness").action="../gpylShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+function  lxIndex(){
+  document.getElementById("frmBusiness").action="../lxShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+function  lsjgIndex(){
+  document.getElementById("frmBusiness").action="../view/lsjg/lsjgquery.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+function  lsjgdateIndex(){
+  document.getElementById("frmBusiness").action="../lsjgdateShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+function  gpmcIndex(){
+  document.getElementById("frmBusiness").action="../gpmcShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+function  systemconfigIndex(){
+  document.getElementById("frmBusiness").action="../systemconfigShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+function  configIndex(){
+  document.getElementById("frmBusiness").action="../configShowOne.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+function  tsxgIndex(){
+  document.getElementById("frmBusiness").action="../view/tsxg/tsxgquery.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+
+
+
+
+function dayqueryIndex(){
+  document.getElementById("frmBusiness").action="../view/dayplan/dayplanquery.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+
+//连接到"系统维护"的各个子页面
+function  BanIndex(){
+  document.getElementById("frmBusiness").action="../banShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+function   JueseIndex(){
+  document.getElementById("frmBusiness").action="../view/juesefunction/jueseshow.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+function   jsqIndex(){
+  document.getElementById("frmBusiness").action="../view/ccgp/jsjs.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+
+function  UserIndex(){
+  document.getElementById("frmBusiness").action="../userShow.do";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+
+function  DangQianYongHuXinXiIndex(){
+	document.getElementById("frmBusiness").action="../view/user/renyuanweihuindex.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+function SunIndex(){
+  document.getElementById("frmBusiness").action="../view/sun/sunquery.jsp";
+  document.getElementById("frmBusiness").submit();
+}
+
+
+</SCRIPT>
+<head>
+</head>
+<body leftMargin="0" topMargin="0" rightMargin="0" scroll="auto">
+<form method="post" name="frmBusiness" id="frmBusiness" action="" target="contextFrame">
+	<table>
+		<tr>		
+			<td style="width:100%;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td style="width:100%;" valign="top">
+			<div style="width:180;height:500px;overflow:auto">
+			    <SCRIPT language="JavaScript">
+			    var jyjlnode = Test_tree.addRootNode("jyjl", "交易记录", "Test_tree.getSelectNode().expand();setDivShow('jyjl')", "", "", true, false, -1, "hfold_open.gif", "hfold_close.gif", "hfold_close.gif");
+				var oneNode = jyjlnode.addNode("jyjlQuery", "交易记录查询", " jyjlQueryIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("交易记录查询");
+			    
+			    oneNode = jyjlnode.addNode("ykfx", "盈亏分析显示", " ykIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("盈亏分析显示");
+				
+				
+				
+				var ccgpnode = Test_tree.addRootNode("ccgp", "持仓股票", "Test_tree.getSelectNode().expand();setDivShow('ccgp')", "", "", true, false, -1, "hfold_open.gif", "hfold_close.gif", "hfold_close.gif");
+				var oneNode = ccgpnode.addNode("dqgpxx", "当前股票资产显示", "dqgpxxIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("当前股票资产显示");
+				oneNode = ccgpnode.addNode("sjfxjifl", "数据分析[交易分类]", "sjfxjiflIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("数据分析[交易分类]");
+
+				oneNode = ccgpnode.addNode("jsq", "计算器", "jsqIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("计算器");
+				
+				
+				var systemPlannode  = Test_tree.addRootNode("XiTongWeiHu", "系统管理", "Test_tree.getSelectNode().expand();setDivShow('XiTongWeiHu')", "", "", true, false, -1, "hfold_open.gif", "hfold_close.gif", "hfold_close.gif");
+				oneNode = systemPlannode.addNode("gpmc", "股票名称维护", " gpmcIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("股票名称维护");
+				
+				oneNode = systemPlannode.addNode("tsxg", "特色选股", " tsxgIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("特色选股");
+				
+				oneNode = systemPlannode.addNode("lsjg", "股票历史价格相关", " lsjgIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("股票历史价格维护");
+				oneNode = systemPlannode.addNode("lsjgdate", "历史价格日期更新情况", " lsjgdateIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("历史价格日期更新情况");
+				
+				oneNode = systemPlannode.addNode("data", "资金/股息维护", " dataIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("资金/股息维护维护");
+				oneNode = systemPlannode.addNode("gpyl", "语录/文章维护", " gpylIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("语录/文章维护维护");
+			
+			oneNode = systemPlannode.addNode("lx", "交易分类维护", "lxIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("交易分类维护维护");
+			oneNode = systemPlannode.addNode("djs", "地区维护", " BanIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("地区维护");
+				oneNode = systemPlannode.addNode("systemconfig", "系统配置中心", " systemconfigIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("系统配置中心");
+				
+				oneNode = systemPlannode.addNode("config", "个人配置中心", " configIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("个人配置中心");
+				
+				oneNode = systemPlannode.addNode("juese", "角色维护", " JueseIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("角色维护");
+				
+				oneNode = systemPlannode.addNode("Userjs", "用户角色维护", " UserIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("用户角色维护");
+				oneNode = systemPlannode.addNode("danqianyonghuxinxiweihu", "当前用户信息维护", " DangQianYongHuXinXiIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("当前用户信息及口令修改");
+				oneNode = systemPlannode.addNode("sun", "系统问题及改进意见", " SunIndex()", "", "", false, false, -1, "jsptaglib.gif", "jsptaglib.gif", "jsptaglib.gif");
+				oneNode.setTitle("系统问题及改进意见");
+				
+				
+				
+				
+				
+				Test_tree.DrawTree(true);
+		            </SCRIPT>
+			</div>
+			</td>
+		</tr>
+	</table>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>交易记录K线图</title>
+
+		<script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?a=e&filename=aapl-ohlc.json&callback=?', function (data) {
+
+        // create the chart
+        $('#container').highcharts('StockChart', {
+
+
+            rangeSelector : {
+                selected : 1
+            },
+
+            title : {
+                text : '交易记录K线图'
+            },
+
+            series : [{
+                type : 'candlestick',
+                name : 'K线价格',
+                data : data,
+                
+            }]
+        });
+    });
+});
+
+		</script>
+	</head>
+	<body>
+<script src="../../js/highstock.js"></script>
+<script src="../../js/exporting.js"></script>
+
+<div id="container" style="height: 400px; min-width: 310px"></div>
+	</body>
+</html>

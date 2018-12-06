@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="GFMS"
+  id="myeclipse.1174616958890"
+  context-root="/GFMS"
+  j2ee-spec="1.4"
+  archive="GFMS.war">
+  <attributes>
+    <attribute name="webrootdir" value="GFMS" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+    <form-bean name="userForm" type="com.fuguo.form.UserForm" />
+    <form-bean name="query_Of_AllForm" type="com.fuguo.form.Query_Of_AllForm" />
+    <form-bean name="printForm" type="com.fuguo.form.PrintForm" />
+    <form-bean name="danweiForm" type="com.fuguo.form.DanweiForm" />
+     <form-bean name="juesefunctionForm" type="com.fuguo.form.JuesefunctionForm" />
+    
+
+     <form-bean name="sunForm" type="com.fuguo.form.SunForm" />
+     <form-bean name="jiluForm" type="com.fuguo.form.JiluForm" />
+     <form-bean name="dataForm" type="com.fuguo.form.DataForm" />
+     <form-bean name="gpmcForm" type="com.fuguo.form.GpmcForm" />
+     <form-bean name="mygpmcForm" type="com.fuguo.form.MygpmcForm" />
+     <form-bean name="lsjgForm" type="com.fuguo.form.LsjgForm" />
+     <form-bean name="gpylForm" type="com.fuguo.form.GpylForm" />
+     <form-bean name="lxForm" type="com.fuguo.form.LxForm" />
+     <form-bean name="configForm" type="com.fuguo.form.ConfigForm" />
+     <form-bean name="systemconfigForm" type="com.fuguo.form.SystemconfigForm" />
+	</form-beans>
+	<global-exceptions />
+	<global-forwards>
+		<forward name="fail" path="/view/error.jsp" />
+	</global-forwards>
+	<action-mappings>
+	
+	<action path="/exit" type="com.fuguo.action.ExitAction" 
+	input="fail" validate="false" scope="request">	
+	<forward name="exit" path="/index.jsp" />
+	</action>
+	<action path="/login" type="com.fuguo.action.LoginAction" name="userForm" scope="request">
+		<forward name="success" path="/mainframe.html" />
+	</action>
+	<!-- 班模块 -->	
+	<action path="/banShow" type="com.fuguo.action.ban.BanShowAction">
+			<forward name="success" path="/view/ban/banshow.jsp" />
+		</action>
+		<action path="/banAdd" type="com.fuguo.action.ban.BanAddAction" name="danweiForm" scope="request">
+			<forward name="success" path="/view/ban/tmp.jsp" />
+		</action>
+		<action path="/banDelete" type="com.fuguo.action.ban.BanDeleteAction" name="danweiForm" scope="request">
+			<forward name="success" path="/view/ban/tmp2.jsp" />
+		</action>
+		<action path="/banUpdate" type="com.fuguo.action.ban.BanUpdateAction" name="danweiForm" scope="request">
+			<forward name="success" path="/view/ban/tmp2.jsp" />
+		</action>
+	
+
+		 		 
+		 
+	
+	<!-- 用户维护 -->	
+	<action path="/userShow" type="com.fuguo.action.user.UserShowAction">
+    	<forward name="success" path="/view/user/usershow.jsp" />
+    </action>
+    
+	<action path="/userAdd" type="com.fuguo.action.user.UserAddAction"  name="userForm" scope="request">
+		<forward name="success" path="/view/user/tmp.jsp" />
+		</action>
+    <action path="/userShowOne" type="com.fuguo.action.user.UserShowOneAction"  name="userForm" scope="request">
+    	<forward name="success" path="/view/user/userupdate.jsp" />
+    </action>
+    <action path="/userDelete" type="com.fuguo.action.user.UserDeleteAction"   name="userForm"  scope="request">
+    <forward name="success" path="/view/user/tmp.jsp" />
+    </action>
+	
+	
+    
+	<action path="/userUpdate" type="com.fuguo.action.user.UserUpdateAction"   name="userForm"  scope="request">
+    <forward name="success" path="/view/user/tmp.jsp" />
+    </action>
+	
+	<action path="/userPwdUpdate" type="com.fuguo.action.user.UserPwdUpdateAction"   name="userForm"  scope="request">
+    <forward name="success" path="/view/user/tmppwd.jsp" />
+    </action>
+<!-- 角色功能维护 -->		 
+	<action path="/juesefunctionPreManage" type="com.fuguo.action.juesefunction.JuesefunctionPreManageAction" name="juesefunctionForm" scope="request">
+			<forward name="success" path="/view/juesefunction/juesefunctionManage.jsp" />
+		</action>
+		<action path="/juesefunctionManage" type="com.fuguo.action.juesefunction.JuesefunctionManageAction" name="juesefunctionForm" scope="request">
+			<forward name="success" path="/view/juesefunction/jueseshow.jsp" />
+		</action>	 
+		 
+		
+		
+		
+		
+		
+		<!-- 意见 模块-->		
+		<action path="/sunAdd" type="com.fuguo.action.sun.SunAddAction" name="sunForm" scope="request">
+			<forward name="success" path="/view/sun/tmp.jsp" />
+		</action>
+		<action path="/sunDelete" type="com.fuguo.action.sun.SunDeleteAction" name="sunForm" scope="request">
+			<forward name="success" path="/view/sun/tmp_update.jsp" />
+		</action>
+		<action path="/sunShowOne" type="com.fuguo.action.sun.SunShowOneAction" name="sunForm" scope="session">
+			<forward name="success" path="/view/sun/sunget.jsp" />
+		</action>
+		<action path="/sunPreUpdate" type="com.fuguo.action.sun.SunPreUpdateAction" name="sunForm" scope="request">
+			<forward name="success" path="/view/sun/sunupdate.jsp" />
+		</action>
+		
+		
+		
+		
+		<action path="/sunUpdate" type="com.fuguo.action.sun.SunUpdateAction" name="sunForm" scope="request">
+			<forward name="success" path="/view/sun/tmp_update.jsp" />
+		</action>
+		<action path="/sunQuery" type="com.fuguo.action.sun.SunQueryAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/sun/queryresultshow.jsp" />
+		</action>
+		<action path="/sunUpdateMoreToYi" type="com.fuguo.action.sun.SunUpdateMoreToYiAction">
+			<forward name="success" path="/view/sun/tmp_update.jsp" />
+		</action>
+		<action path="/sunDeleteMore" type="com.fuguo.action.sun.SunDeleteMoreAction">
+			<forward name="success" path="/view/sun/tmp_update.jsp" />
+		</action>
+    	
+		
+		<!-- jilu 模块-->		
+		<action path="/jiluAdd" type="com.fuguo.action.jilu.JiluAddAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp.jsp" />
+		</action>
+		<action path="/jiluDelete" type="com.fuguo.action.jilu.JiluDeleteAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp_update.jsp" />
+		</action>
+		<action path="/jiluLogicDelete" type="com.fuguo.action.jilu.JiluLogicDeleteAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp_update.jsp" />
+		</action>
+		<action path="/jiluShowJson" type="com.fuguo.action.jilu.JiluShowJsonAction"  name="jiluForm" scope="request">
+			<forward name="success" path="/view/tmp.jsp" />
+		</action>
+		<action path="/jiluShowOne" type="com.fuguo.action.jilu.JiluShowOneAction" name="jiluForm" scope="session">
+			<forward name="success" path="/view/jilu/jiluget.jsp" />
+		</action>
+		<action path="/jiluPreUpdate" type="com.fuguo.action.jilu.JiluPreUpdateAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/jiluupdate.jsp" />
+		</action>
+		
+		<action path="/jiluUpload" type="com.fuguo.action.jilu.JiluUploadAction" scope="request">
+			<forward name="success" path="/view/jilu/tmp.jsp" />
+		</action>
+		
+		
+		<action path="/jiluUpdate" type="com.fuguo.action.jilu.JiluUpdateAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp_update.jsp" />
+		</action>
+		<action path="/jiluUpdateSpc" type="com.fuguo.action.jilu.JiluUpdateSpcAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp3.jsp" />
+		</action>
+		
+		<action path="/jiluUpdateSpcs" type="com.fuguo.action.jilu.JiluUpdateSpcsAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/jilu/tmp3.jsp" />
+		</action>
+		<action path="/jiluQuery" type="com.fuguo.action.jilu.JiluQueryAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/queryresultshow.jsp" />
+		</action>
+		<action path="/jiluSpecalQuery" type="com.fuguo.action.jilu.JiluSpecalQueryAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/queryresultspecalshow.jsp" />
+		</action>
+		
+		<action path="/jiluUpdateMoreToYi" type="com.fuguo.action.jilu.JiluUpdateMoreToYiAction">
+			<forward name="success" path="/view/jilu/tmp_update.jsp" />
+		</action>
+		<action path="/jiluDeleteMore" type="com.fuguo.action.jilu.JiluDeleteMoreAction">
+			<forward name="success" path="/view/jilu/tmp_update.jsp" />
+		</action> 
+		<action path="/clearAll" type="com.fuguo.action.jilu.ClearAllAction" name="jiluForm" scope="request">
+			<forward name="success" path="/view/tmp.jsp" />
+		</action>
+		<action path="/ykfxShow" type="com.fuguo.action.jilu.YkfxShowAction" name="jiluForm" scope="session">
+			<forward name="success" path="/view/jilu/ykfxshow.jsp" />
+		</action>
+		<action path="/ykfxQuery" type="com.fuguo.action.jilu.YkfxQueryAction" name="jiluForm" scope="session">
+			<forward name="success" path="/view/jilu/ykfxqueryresultshow.jsp" />
+		</action>
+		<action path="/ykfx" type="com.fuguo.action.jilu.YkfxAction">
+			<forward name="success" path="/view/jilu/ykfx.jsp" />
+		</action>
+		<action path="/ykfxShowOne" type="com.fuguo.action.jilu.YkfxShowOneAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/jilu/ykfxshowone.jsp" />
+		</action>
+		<action path="/ykfxZxt" type="com.fuguo.action.jilu.YkfxZxtAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/ykfxzxt.jsp" />
+		</action>
+		<action path="/ykfxZxt2" type="com.fuguo.action.jilu.YkfxZxt2Action" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/ykfxzxt2.jsp" />
+		</action>
+		<action path="/zzcGpszZxt" type="com.fuguo.action.jilu.ZzcGpszZxtAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/zzcgpszzxt.jsp" />
+		</action>
+		<action path="/ykfxZxtOneStock" type="com.fuguo.action.jilu.YkfxZxtOneStockAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/jilu/ykfxzxtonestock.jsp" />
+		</action>
+		
+		<action path="/orderShow" type="com.fuguo.action.ccgp.OrderShowAction" scope="session">
+			<forward name="success" path="/view/ccgp/ordershow.jsp" />
+		</action>
+		
+		<action path="/listShowOne" type="com.fuguo.action.ccgp.ListShowOneAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/ccgp/listshowone.jsp" />
+		</action>
+		<action path="/hb" type="com.fuguo.action.ccgp.HbAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/tmp.jsp" />
+		</action>
+		
+		<action path="/js" type="com.fuguo.action.ccgp.JsAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/ccgp/js.jsp" />
+		</action>
+		<action path="/cqPre" type="com.fuguo.action.ccgp.CqPreAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/ccgp/cq.jsp" />
+		</action>
+		<action path="/cq" type="com.fuguo.action.ccgp.CqAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/ccgp/tmp.jsp" />
+		</action>
+		
+		<action path="/jiflShowBT" type="com.fuguo.action.ccgp.JiflShowBTAction"  name="jiluForm"  scope="request">
+			<forward name="success" path="/view/ccgp/jiflshowbt.jsp" />
+		</action>
+		
+		<!-- data -->		 
+		<action path="/dataAdd" type="com.fuguo.action.data.DataAddAction" name="dataForm" scope="request">
+			<forward name="success" path="/view/data/tmp.jsp" />
+		</action>
+		<action path="/dataDelete" type="com.fuguo.action.data.DataDeleteAction" name="dataForm" scope="request">
+			<forward name="success" path="/view/data/tmp_update.jsp" />
+		</action>
+		<action path="/dataShowOne" type="com.fuguo.action.data.DataShowOneAction" name="dataForm" scope="request">
+			<forward name="success" path="/view/data/dataget.jsp" />
+		</action>
+		<action path="/dataPreUpdate" type="com.fuguo.action.data.DataPreUpdateAction" name="dataForm" scope="request">
+			<forward name="success" path="/view/data/dataupdate.jsp" />
+		</action>
+		<action path="/dataShow" type="com.fuguo.action.data.DataShowAction"  name="dataForm" scope="session">
+			<forward name="success" path="/view/data/datashow.jsp" />
+		</action>
+		<action path="/dataUpdate" type="com.fuguo.action.data.DataUpdateAction" name="dataForm" scope="request">
+			<forward name="success" path="/view/data/tmp_update.jsp" />
+		</action>
+		<action path="/dataJingzhiZxt" type="com.fuguo.action.data.DataJingzhiZxtAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/data/jingzhizxt.jsp" />
+		</action>
+		
+		<!-- gpyl -->		 
+		<action path="/gpylAdd" type="com.fuguo.action.gpyl.GpylAddAction" name="gpylForm" scope="request">
+			<forward name="success" path="/view/gpyl/tmp.jsp" />
+		</action>
+		<action path="/gpylDelete" type="com.fuguo.action.gpyl.GpylDeleteAction" name="gpylForm" scope="request">
+			<forward name="success" path="/view/gpyl/tmp_update.jsp" />
+		</action>
+		<action path="/gpylShowOne" type="com.fuguo.action.gpyl.GpylShowOneAction" name="gpylForm" scope="request">
+			<forward name="success" path="/view/gpyl/gpylget.jsp" />
+		</action>
+		<action path="/gpylPreUpdate" type="com.fuguo.action.gpyl.GpylPreUpdateAction" name="gpylForm" scope="request">
+			<forward name="success" path="/view/gpyl/gpylupdate.jsp" />
+		</action>
+		<action path="/gpylShow" type="com.fuguo.action.gpyl.GpylShowAction"  name="gpylForm" scope="session">
+			<forward name="success" path="/view/gpyl/gpylshow.jsp" />
+		</action>
+		<action path="/gpylUpdate" type="com.fuguo.action.gpyl.GpylUpdateAction" name="gpylForm" scope="request">
+			<forward name="success" path="/view/gpyl/tmp_update.jsp" />
+		</action>
+		<action path="/gpylPrint" type="com.fuguo.action.gpyl.GpylPrintAction" name="printForm" scope="request" >
+			<forward name="success" path="/view/gpyl/tmp.jsp" />
+		</action>
+		
+		
+		
+		<!-- gpmc -->		 
+		<action path="/gpmcAdd" type="com.fuguo.action.gpmc.GpmcAddAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/gpmc/tmp.jsp" />
+		</action>
+		<action path="/gpmcAdds" type="com.fuguo.action.gpmc.GpmcAddsAction">
+			<forward name="success" path="/view/gpmc/tmp.jsp" />
+		</action>
+		<action path="/gpmcDelete" type="com.fuguo.action.gpmc.GpmcDeleteAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/gpmc/tmp_update.jsp" />
+		</action>
+		<action path="/gpmcShowOne" type="com.fuguo.action.gpmc.GpmcShowOneAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/gpmc/gpmcget.jsp" />
+		</action>
+		<action path="/gpmcPreUpdate" type="com.fuguo.action.gpmc.GpmcPreUpdateAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/gpmc/gpmcupdate.jsp" />
+		</action>
+		<action path="/gpmcShow" type="com.fuguo.action.gpmc.GpmcShowAction"  name="gpmcForm" scope="session">
+			<forward name="success" path="/view/gpmc/gpmcshow.jsp" />
+		</action>
+		<action path="/gpmcUpdate" type="com.fuguo.action.gpmc.GpmcUpdateAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/gpmc/tmp_update.jsp" />
+		</action>
+		
+		
+			<!-- mygpmc -->		 
+		<action path="/mygpmcAdd" type="com.fuguo.action.mygpmc.MygpmcAddAction" name="mygpmcForm" scope="request">
+			<forward name="success" path="/view/mygpmc/tmp.jsp" />
+		</action>
+		
+		<action path="/mygpmcDelete" type="com.fuguo.action.mygpmc.MygpmcDeleteAction" name="mygpmcForm" scope="request">
+			<forward name="success" path="/view/mygpmc/tmp_update.jsp" />
+		</action>
+		<action path="/mygpmcDeleteMore" type="com.fuguo.action.mygpmc.MygpmcDeleteMoreAction">
+			<forward name="success" path="/view/mygpmc/tmp_update.jsp" />
+		</action> 
+	
+		<action path="/mygpmcShow" type="com.fuguo.action.mygpmc.MygpmcShowAction"  name="mygpmcForm" scope="session">
+			<forward name="success" path="/view/mygpmc/mygpmcshow.jsp" />
+		</action>
+		<action path="/mygpmcAutomncz" type="com.fuguo.action.mygpmc.MygpmcAutomnczAction"  name="query_Of_AllForm" scope="session">
+			
+			<forward name="success" path="/view/mygpmc/tmp_update.jsp" />
+			
+		</action> 
+		<!-- lsjg -->
+		<action path="/lsjgShow" type="com.fuguo.action.lsjg.LsjgShowAction"  name="lsjgForm" scope="session">
+			<forward name="success" path="/view/lsjg/lsjgshow.jsp" />
+		</action>
+		
+		<action path="/lsjgShowJson" type="com.fuguo.action.lsjg.LsjgShowJsonAction"  name="lsjgForm" scope="request">
+			<forward name="success" path="/view/tmp.jsp" />
+		</action>
+		
+		<action path="/lsjgQuery" type="com.fuguo.action.lsjg.LsjgQueryAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/lsjg/queryresultshow.jsp" />
+		</action>
+		<action path="/lsjgAdds" type="com.fuguo.action.lsjg.LsjgAddsAction" name="query_Of_AllForm" scope="request">
+			<forward name="success" path="/lsjgdateShow.do" />
+		</action>
+		
+		<action path="/lsjgVolAutoAdds" type="com.fuguo.action.lsjg.LsjgVolAutoAddsAction" name="query_Of_AllForm" scope="request">
+			<forward name="success" path="/view/lsjg/tmp_update.jsp" />
+		</action>
+		
+		<!-- lsjgdate -->
+		<action path="/lsjgdateShow" type="com.fuguo.action.lsjgdate.LsjgdateShowAction"  name="lsjgForm" scope="session">
+			<forward name="success" path="/view/lsjgdate/lsjgdateshow.jsp" />
+		</action>
+		
+		<!-- lx -->		 
+		<action path="/lxAdd" type="com.fuguo.action.lx.LxAddAction" name="lxForm" scope="request">
+			<forward name="success" path="/view/lx/tmp.jsp" />
+		</action>
+		<action path="/lxDelete" type="com.fuguo.action.lx.LxDeleteAction" name="lxForm" scope="request">
+			<forward name="success" path="/view/lx/tmp_update.jsp" />
+		</action>
+		<action path="/lxShowOne" type="com.fuguo.action.lx.LxShowOneAction" name="lxForm" scope="request">
+			<forward name="success" path="/view/lx/lxget.jsp" />
+		</action>
+		<action path="/lxPreUpdate" type="com.fuguo.action.lx.LxPreUpdateAction" name="lxForm" scope="request">
+			<forward name="success" path="/view/lx/lxupdate.jsp" />
+		</action>
+		<action path="/lxShow" type="com.fuguo.action.lx.LxShowAction"  name="lxForm" scope="session">
+			<forward name="success" path="/view/lx/lxshow.jsp" />
+		</action>
+		<action path="/lxUpdate" type="com.fuguo.action.lx.LxUpdateAction" name="lxForm" scope="request">
+			<forward name="success" path="/view/lx/tmp_update.jsp" />
+		</action>
+		
+		<!-- config -->		 
+		
+		
+		<action path="/configShowOne" type="com.fuguo.action.config.ConfigShowOneAction" name="configForm" scope="request">
+			<forward name="success" path="/view/config/configget.jsp" />
+		</action>
+		<action path="/configPreUpdate" type="com.fuguo.action.config.ConfigPreUpdateAction" name="configForm" scope="request">
+			<forward name="success" path="/view/config/configupdate.jsp" />
+		</action>
+		
+		<action path="/configUpdate" type="com.fuguo.action.config.ConfigUpdateAction" name="configForm" scope="request">
+			<forward name="success" path="/view/config/tmp_update.jsp" />
+		</action>
+		<action path="/configUpdateSpc" type="com.fuguo.action.config.ConfigUpdateSpcAction" name="query_Of_AllForm" scope="request">
+			<forward name="success" path="/jiluSpecalQuery.do" />
+		</action>
+		
+		<action path="/tsxgQuery" type="com.fuguo.action.tsxg.TsxgQueryAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/tsxg/queryresultshow.jsp" />
+		</action>
+		<action path="/volAdds" type="com.fuguo.action.tsxg.VolAddsAction"  scope="request">
+			<forward name="success" path="/view/tsxg/tmp_update.jsp" />
+		</action>
+		<action path="/volShow" type="com.fuguo.action.tsxg.VolShowAction" scope="request">
+			<forward name="success" path="/view/tsxg/volshow.jsp" />
+			
+			
+		</action>
+		<action path="/volDelete" type="com.fuguo.action.tsxg.VolDeleteAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/volShow.do" />
+		</action>
+		<action path="/volDeleteMore" type="com.fuguo.action.tsxg.VolDeleteMoreAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/tsxg/tmp.jsp" />
+		</action>
+		<action path="/volAdd" type="com.fuguo.action.tsxg.VolAddAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/tsxg/tmp.jsp" />
+		</action>
+		<action path="/volAutoFx" type="com.fuguo.action.tsxg.VolAutoFxAction" name="query_Of_AllForm" scope="session">
+			<forward name="success" path="/view/tsxg/volautofxresult.jsp" />	
+		</action>
+		
+		<action path="/showOnePic" type="com.fuguo.action.tsxg.ShowOnePicAction" name="gpmcForm" scope="request">
+			<forward name="success" path="/view/tsxg/onepicget.jsp" />
+		</action>
+		<!-- systemconfig -->		 
+		<action path="/systemconfigAdd" type="com.fuguo.action.systemconfig.SystemconfigAddAction" name="systemconfigForm" scope="request">
+			<forward name="success" path="/view/systemconfig/tmp.jsp" />
+		</action>
+		
+		<action path="/systemconfigDelete" type="com.fuguo.action.systemconfig.SystemconfigDeleteAction" name="systemconfigForm" scope="request">
+			<forward name="success" path="/view/systemconfig/tmp_update.jsp" />
+		</action>
+		<action path="/systemconfigShowOne" type="com.fuguo.action.systemconfig.SystemconfigShowOneAction" name="systemconfigForm" scope="request">
+			<forward name="success" path="/view/systemconfig/systemconfigget.jsp" />
+		</action>
+		<action path="/systemconfigPreUpdate" type="com.fuguo.action.systemconfig.SystemconfigPreUpdateAction" name="systemconfigForm" scope="request">
+			<forward name="success" path="/view/systemconfig/systemconfigupdate.jsp" />
+		</action>
+		<action path="/systemconfigShow" type="com.fuguo.action.systemconfig.SystemconfigShowAction"  name="systemconfigForm" scope="session">
+			<forward name="success" path="/view/systemconfig/systemconfigshow.jsp" />
+		</action>
+		<action path="/systemconfigUpdate" type="com.fuguo.action.systemconfig.SystemconfigUpdateAction" name="systemconfigForm" scope="request">
+			<forward name="success" path="/view/systemconfig/tmp_update.jsp" />
+		</action>
+		
+		<action path="/ssfenxiJson" type="com.fuguo.action.ssfenxi.SsfenxiJsonAction"  name="jiluForm" scope="request">
+			<forward name="success" path="/view/tmp.jsp" />
+		</action>
+	</action-mappings>
+	<message-resources parameter="bsw.tools.struts.ApplicationResources" />
+	<plug-in className="bsw.tools.struts.WebAppStartPlugIn"></plug-in>
+</struts-config>
+
