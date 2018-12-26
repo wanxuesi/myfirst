@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <center><font color=red>${ZQMC}</font>&nbsp;&nbsp;交易分类及盈亏分析页面</center><br>
     <center><input type="button" value="查看历史交易记录" class="button" onclick="showMyJL();">
     
-    &nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="该股盈亏折线图" class="button" onclick="showMyZXT();">
+    &nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="该股盈亏/持仓量折线图" class="button" onclick="showMyZXT();">
     &nbsp;&nbsp;&nbsp;&nbsp; 混合成本价：<bean:write name="NEWCBJ" format=".000" filter="false"/>&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="button" value="合并历史盈亏" class="button" onclick="hb(${ZQDM});">
     &nbsp;&nbsp;&nbsp;&nbsp;

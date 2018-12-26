@@ -371,4 +371,57 @@ CREATE TABLE mygpmc (
 
 );
 
+--------
+一对多的CRUD操作测试
+---TestOrder，TestList
+
+
+CREATE TABLE testorder
+      (id	integer not null,
+	zqdm	varchar(20),
+	zqmc     varchar(60),
+	
+	--持有数量
+	cysl	int,
+	
+	--成本价
+	cbj    double,
+	
+	
+	
+	flag1	varchar(20),
+	flag2	varchar(20),
+	flag3	varchar(20),
+	flag4	varchar(20),
+	flag5	varchar(20),
+
+       
+       PRIMARY KEY (id)
+);
+
+
+CREATE TABLE testlist
+      (id	integer not null,
+	zqdm	varchar(20),
+	zqmc     varchar(60),
+	
+	--持有数量
+	cysl	int,
+	
+	--交易分类
+	jifl   varchar(20),
+	
+	--testorderID外键
+	testorderid int,
+	flag1	varchar(20),
+	flag2	varchar(20),
+	flag3	varchar(20),
+	flag4	varchar(20),
+	flag5	varchar(20),
+
+       
+       PRIMARY KEY (id)
+);
+
+
 

@@ -93,7 +93,7 @@ public class YkfxZxtOneStockAction extends BaseAction {
 		//String _start_rq =qForm.getStart_rq().trim();
 		//String _end_rq = qForm.getEnd_rq().trim();
 		
-		String xxjh="盈亏分析日折线图";
+		String xxjh="盈亏/持仓量 分析日折线图";
 		String queryDateSql=sdf.format(jiludateMin)+" ～ "+sdf.format(jiludateMax)+" " +xxjh;
 		
 		//将它们转换为util.Date类型

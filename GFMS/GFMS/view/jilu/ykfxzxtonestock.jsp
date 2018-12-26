@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>${ZQMC}(${ZQDM})日折线图展示页面</title>
+    <title>${ZQMC}(${ZQDM})日盈亏/持仓量折线图展示页面</title>
     
      <meta charset="utf-8"><link rel="icon" href="https://static.jianshukeji.com/highcharts/images/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
