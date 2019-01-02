@@ -49,6 +49,7 @@ public class ListShowOneAction extends BaseAction {
 		int cysl=0;
 		double dqsz=0;
 		ListBO uBO =new ListBO();
+//		完全可以用hql
 		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,jifl from list where flag1='"+idStr+"' and zqdm='"+zqdm+"'");
 		StockUtil sUtil = new StockUtil();
 		Iterator itTMP = listTMP.iterator();
@@ -101,6 +102,7 @@ public class ListShowOneAction extends BaseAction {
 		}
 		
 //		暂时没有将list中的持仓股票的市值算进来。
+//		完全可以用hql
 		String sql2 = "select zqdm,zqmc,cysl,jifl from list where  flag1='"+idStr+"' and zqdm='"+zqdm+"'"; 
 		
 //		调用业务逻辑层
@@ -188,6 +190,7 @@ public class ListShowOneAction extends BaseAction {
 		//查找该order的一条记录
 		
 		OrderBO oBO = new OrderBO();
+//		完全可以用hql
 		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'");
 				
 		Iterator itOrder = listOrder.iterator();

@@ -100,6 +100,7 @@ public class DataShowAction extends BaseAction {
 		
 //		计算总市值
 		OrderBO uBO =new OrderBO();
+//		完全可以用hql
 		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'");
 		
 		Iterator it = listTMP.iterator();

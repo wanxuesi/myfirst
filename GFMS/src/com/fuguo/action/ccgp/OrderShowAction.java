@@ -55,7 +55,7 @@ public class OrderShowAction extends BaseAction {
 		
 		
 		
-		
+//      完全可以用hql
 		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'");
 		
 		Iterator it = listTMP.iterator();
@@ -120,6 +120,7 @@ public class OrderShowAction extends BaseAction {
 				}
 			}
 			//将该order的list，放入到order中；
+//			完全可以用hql
 			String sql2 = "select zqdm,zqmc,cysl,jifl from list where  flag1='"+idStr+"' and zqdm='"+zqdm+"'"; 
 			
 //			调用业务逻辑层

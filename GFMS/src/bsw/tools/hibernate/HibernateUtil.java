@@ -25,9 +25,7 @@ import bsw.tools.log.LogUtil;
 
 
 /**
- * @描述: Hibernate工具类，通过该工具类可以方便的把数据持久化到数据库中,该工具类为单例模式
-
- * 
+ * Hibernate工具类，通过该工具类可以方便的把数据持久化到数据库中,该工具类为单例模式
  */
 public class HibernateUtil {
 

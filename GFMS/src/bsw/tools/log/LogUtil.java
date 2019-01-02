@@ -26,9 +26,9 @@ import org.apache.commons.logging.LogFactory;
  * 
  * 注意，在JCL的LogFactory的实现中已经使用缓存对象，所以此处在获取特定的log实例时不需要再添加缓存对象。
  *
- * @单位: 江苏工业学院
- * @邮箱: lixiaoyan19851122@163.com
- * @作者: 李小燕 
+ * @单位: 江苏理工学院
+ * @邮箱: wanxuesi@163.com
+ * @作者: 万学思 
  */
 public class LogUtil {
 

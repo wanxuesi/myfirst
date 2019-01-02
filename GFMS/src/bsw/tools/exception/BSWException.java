@@ -1,9 +1,12 @@
 package bsw.tools.exception;
-
 /**
- * @描述: 框架异常类
+ * 
+ * @单位: 江苏理工学院
+ * @邮箱: wanxuesi@163.com
+ * @作者: 万学思
+ * @描述: 所有类的自定义异常类
  *
-
+ * @日期: 2019-1-1
  */
 public class BSWException extends Exception {
 

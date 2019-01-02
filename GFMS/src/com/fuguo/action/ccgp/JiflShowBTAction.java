@@ -93,6 +93,7 @@ public class JiflShowBTAction extends BaseAction {
 		DataBO dBO  =new DataBO();
 		List list4 = dBO.sqlQuery(sql4);
 		
+		
 		Iterator it4 = list4.iterator();
 		Map _map4=null;
 		

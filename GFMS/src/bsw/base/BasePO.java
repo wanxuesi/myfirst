@@ -11,8 +11,13 @@ import bsw.tools.exception.BSWException;
 import bsw.tools.hibernate.HibernateUtil;
 
 /**
- * @描述：所有PO的基类
- 
+ * 
+ * @单位: 江苏理工学院
+ * @邮箱: wanxuesi@163.com
+ * @作者: 万学思
+ * @描述: 所有PO的基类
+ *
+ * @日期: 2019-1-1
  */
 
 public abstract class BasePO {
@@ -125,7 +130,7 @@ public abstract class BasePO {
 	}
 	/**
 	 * 
-	 *描述:对象关联查询（基于sql）db2有问题；
+	 *描述:对象关联查询（基于sql）db2有问题(db2返回的全部是大写的字段，因此，无法将查询的字段自动映射到java类上)；
 	 * @param sql,需要组装的bean。
 	 * @return BaseDTO[]
 	 * 

@@ -77,6 +77,7 @@ public class HbAction extends BaseAction {
 		
 		OrderDTO oDTO = new OrderDTO();
 		OrderBO oBO = new OrderBO();
+		//完全可以用hql。
 		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'");
 		
 //		说明有该记录，直接在orderUpdate;

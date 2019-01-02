@@ -185,6 +185,7 @@ public class CqAction extends BaseAction {
 	        
         ListBO lBO = new ListBO();
         ListDTO lDTO = new ListDTO();
+        //完全可以用hql
         List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'");
 		
         
@@ -264,7 +265,7 @@ public class CqAction extends BaseAction {
 
         OrderBO oBO = new OrderBO();
 		OrderDTO oDTO = new OrderDTO();
-        
+//		完全可以用hql
 		List list =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'");
 
 //		说明有该记录，直接在orderUpdate;
