@@ -284,7 +284,7 @@ public class HibernateUtil {
 	 * @param hql
 	 * @return list 里面存放的为关联的对象数组list；如果关联2个对象，就是一条记录里有2个对象；
 	 * 如果是几个字段属性，那么数组list中的某个数组里放着依次的属性值（没有属性名）。
-	 * 
+	 * 比如max，sum 等，也可以用了。
 	 * @throws BSWException
 	 */
 	public List tuplesQuery(String hql) throws BSWException {
@@ -311,38 +311,38 @@ public class HibernateUtil {
 		}
 
 	}
-	/**
-	 * 
-	 * @param sql
-	 * @return List 带属性名的map（注意大小写）因为没有做映射配置。
-	 * @throws BSWException
-	 */
-	public List<Map> sqlQuery(String sql) throws BSWException {
-		
-		//String sql = "select u.*,d.name as dwbm_name from user u,dwbm d where u.dwbm_id=d.id";
-		Session session = null;
-		Transaction transaction = null;
-		try {
-			session = HibernateSessionFactory.currentSession();
-			LogUtil.info("bsw",ResourceBundleUtil.getString("INFO1"));
-			transaction = session.beginTransaction();
-			List<Map> list = session.createSQLQuery(sql).setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();//放入到map中
-
-			transaction.commit();
-			LogUtil.info("bsw",ResourceBundleUtil.getString("QUERYALL_SUCCESS"));
-			return list;
-			
-		} catch (HibernateException e) {
-			transaction.rollback();
-			e.printStackTrace();
-			LogUtil.error("bsw",ResourceBundleUtil.getString("QUERYALL_FAIL"));
-			throw new BSWException("关联对象查询失败：" + e.getMessage());
-		} finally {
-			if (session != null)
-				session.close();
-		}
-
-	}
+//	/**
+//	 * 
+//	 * @param sql
+//	 * @return List 带属性名的map（注意大小写）因为没有做映射配置。该方法获取数据比较复杂，废弃
+//	 * @throws BSWException
+//	 */
+//	public List<Map> sqlQuery(String sql) throws BSWException {
+//		
+//		//String sql = "select u.*,d.name as dwbm_name from user u,dwbm d where u.dwbm_id=d.id";
+//		Session session = null;
+//		Transaction transaction = null;
+//		try {
+//			session = HibernateSessionFactory.currentSession();
+//			LogUtil.info("bsw",ResourceBundleUtil.getString("INFO1"));
+//			transaction = session.beginTransaction();
+//			List<Map> list = session.createSQLQuery(sql).setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();//放入到map中
+//
+//			transaction.commit();
+//			LogUtil.info("bsw",ResourceBundleUtil.getString("QUERYALL_SUCCESS"));
+//			return list;
+//			
+//		} catch (HibernateException e) {
+//			transaction.rollback();
+//			e.printStackTrace();
+//			LogUtil.error("bsw",ResourceBundleUtil.getString("QUERYALL_FAIL"));
+//			throw new BSWException("关联对象查询失败：" + e.getMessage());
+//		} finally {
+//			if (session != null)
+//				session.close();
+//		}
+//
+//	}
 	
 	public void sqlUpdateOrDel(String sql) throws BSWException {
 		Session session = null;
@@ -384,8 +384,9 @@ public class HibernateUtil {
 	 */
 	/**
 	 * 
-	 *描述:对象关联查询（基于sql）db2有问题。是不是要注意大小写呢？？？（只有大写，果真是啊。）
-	 * @param sql,需要组装的bean。
+	 *描述:对象关联查询（基于sql）db2也没有问题了。是不是要注意大小写呢？？？（只有大写，果真是啊。）现在可以不用这么区分大小写了
+	 *重写了自己的类SQLColumnToBean.class，覆盖Transformers.aliasToBean(classArg)类。
+	 * @param sql,DTO对象，也可以是需要组装的bean。
 	 * @return List 里面放的class对象。
 	 * 
 	 * @throws BSWException
@@ -401,17 +402,9 @@ public class HibernateUtil {
 			//LogUtil.info("bsw",ResourceBundleUtil.getString("INFO1"));
 			transaction = session.beginTransaction();
 			//List<Map> list = session.createSQLQuery(sql).setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();//放入到map中
-			List list = session.createSQLQuery(sql).setResultTransformer(Transformers.aliasToBean(classArg)).list();
-			
+			List list = session.createSQLQuery(sql).setResultTransformer(new SQLColumnToBean(classArg)).list();
 			transaction.commit();
 			//LogUtil.info("bsw",ResourceBundleUtil.getString("QUERYALL_SUCCESS"));
-			
-//			Iterator it = list.iterator();
-//			while(it.hasNext()){
-//				Map map=(Map)it.next();
-//				
-//				System.out.println(map.get("dwbm_name"));
-//			}
 			
 			return list;
 			

@@ -105,7 +105,8 @@ public abstract class BasePO {
 	 *描述:对象关联查询（元组查询）
 	 * @param hql
 	 * @return list 里面存放的为关联的对象数组list；如果关联2个对象，就是一条记录里有2个对象；
-	 * 
+	 * 如果是几个字段属性，那么数组list中的某个数组里放着依次的属性值（没有属性名）。
+	 * 比如max，sum 等，也可以用了。
 	 * @throws BSWException
 	 */
 	
@@ -116,18 +117,18 @@ public abstract class BasePO {
 	
 	
 	
-	/**
-	 * 
-	 *描述:对象关联查询（基于sql）
-	 * @param sql
-	 * @return  List 带属性名的map（注意大小写）因为没有做映射配置。
-	 * 
-	 * @throws BSWException
-	 */
-	public List sqlQuery(String sql) throws BSWException {
-		List list =hibernateUtil.sqlQuery(sql);
-		return list;
-	}
+//	/**
+//	 * 
+//	 *描述:对象关联查询（基于sql）
+//	 * @param sql
+//	 * @return  List 带属性名的map（注意大小写）因为没有做映射配置。
+//	 * 
+//	 * @throws BSWException
+//	 */
+//	public List sqlQuery(String sql) throws BSWException {
+//		List list =hibernateUtil.sqlQuery(sql);
+//		return list;
+//	}
 	/**
 	 * 
 	 *描述:对象关联查询（基于sql）db2有问题(db2返回的全部是大写的字段，因此，无法将查询的字段自动映射到java类上)；

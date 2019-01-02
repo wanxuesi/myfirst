@@ -143,12 +143,7 @@ public List sqlQuery(String sql,Class classArg) throws BSWException {
 	return list;
 }
 
-public List sqlQuery(String sql) throws BSWException {
-	gpylPO=new GpylPO();
-	List list =gpylPO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 public void sqlUpdateOrDel(String sql) throws BSWException{
 	gpylPO=new GpylPO();

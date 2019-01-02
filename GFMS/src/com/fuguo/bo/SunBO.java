@@ -204,20 +204,7 @@ public List tuplesQuery(String hql) throws BSWException {
 }
 
 
-/**
- * 
- *描述:对象关联查询（基于sql）
- * @param sql
- * @return List<Map>
- * 
- * @throws BSWException
- */
-public List sqlQuery(String sql) throws BSWException {
-	sunPO=new SunPO();
-	List list =sunPO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 
 public List sqlQuery(String sql,Class classArg) throws BSWException {

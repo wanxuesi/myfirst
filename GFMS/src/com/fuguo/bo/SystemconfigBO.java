@@ -12,6 +12,7 @@ import bsw.fwk.PageRoll;
 import bsw.tools.exception.BSWException;
 
 import com.fuguo.dto.SystemconfigDTO;
+import com.fuguo.po.DataPO;
 import com.fuguo.po.SystemconfigPO;
 import com.fuguo.util.JsoupParser;
 import com.fuguo.util.StockUtil;
@@ -112,12 +113,7 @@ public class SystemconfigBO {
 		return systemconfigDTO;
 	}
 
-	public List sqlQuery(String sql) throws BSWException {
-		systemconfigPO=new SystemconfigPO();
-		List list =systemconfigPO.sqlQuery(sql);
-		
-		return list;
-	}
+
 	/**
 	 * 如果需要联合查询的时候，可以将该方法放入到业务类中；
 	 * @param hql
@@ -133,7 +129,20 @@ public class SystemconfigBO {
 		return list;
 	}
 
-	
+	/**
+	 * 
+	 *描述:对象关联查询（基于sql）
+	 * @param sql,需要组装的bean。
+	 * @return List
+	 * 
+	 * @throws BSWException
+	 */
+	public List sqlQuery(String sql,Class classArg) throws BSWException {
+		systemconfigPO=new SystemconfigPO();
+		List list =systemconfigPO.sqlQuery(sql,classArg);
+		
+		return list;
+	}
 	
 	
 	

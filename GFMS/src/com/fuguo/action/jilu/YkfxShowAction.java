@@ -20,6 +20,8 @@ import bsw.fwk.BaseUserContext;
 import com.fuguo.bo.DataBO;
 import com.fuguo.bo.JiluBO;
 import com.fuguo.bo.OrderBO;
+import com.fuguo.dto.DataDTO;
+import com.fuguo.dto.JiluDTO;
 import com.fuguo.dto.OrderDTO;
 import com.fuguo.util.StockUtil;
 
@@ -43,7 +45,7 @@ public class YkfxShowAction extends BaseAction {
 		Double  LJYK = 0.0;//包含持有股票的市值；
 		Double  CYSZ = 0.0;//当前股票持有市值；
 		OrderBO uBO =new OrderBO();
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where   flag1='"+idStr+"' ");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where   flag1='"+idStr+"' ",OrderDTO.class);
 		
 		Iterator itTMP = listTMP.iterator();
 		Map _map=null;
@@ -54,13 +56,12 @@ public class YkfxShowAction extends BaseAction {
 		double dqsz=0;
 		int cysl=0;
 		while(itTMP.hasNext()){
-			_map=(Map)itTMP.next();
-			mDTO=new OrderDTO();
-			//mDTO.setId((Integer)_map.get("ID"));
-			//mDTO.setZqmc((String)_map.get("ZQMC"));
-			String zqdm = (String)_map.get("ZQDM");
+			mDTO=(OrderDTO)itTMP.next();
+			
+			
+			String zqdm = mDTO.getZqdm();
 			mDTO.setZqdm(zqdm);
-			cysl = (Integer)_map.get("CYSL");
+			cysl =mDTO.getCysl();
 			mDTO.setCysl(cysl);
 			dqj = sUtil.getDqjByZqdm(zqdm);//当前价；		
 			dqsz = dqj*cysl;//当前单只股票市值；
@@ -76,19 +77,19 @@ public class YkfxShowAction extends BaseAction {
 		
 		
 		//Double  cjjes = 0.0;
-		String sql = "select sum(qsje) qsjes from jilu  where  khdm='"+idStr+"' and flag1='已处理'"; 
+		String sql = "select sum(qsje) qsje from jilu  where  khdm='"+idStr+"' and flag1='已处理'"; 
 		
 //		调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		
 		Iterator it = list.iterator();
 		
 		
 		if(it.hasNext()){
-			_map=(Map)it.next();
-			LJYK  =(Double)_map.get("QSJES");
+			JiluDTO _jiluDTO=(JiluDTO)it.next();
+			LJYK  =_jiluDTO.getQsje();
 			//cjjes = (Double)_map.get("CJJES");
 			if(LJYK==null){
 				LJYK=0.0;
@@ -98,49 +99,49 @@ public class YkfxShowAction extends BaseAction {
 		
 //		获取累计交易费；
 		Double LJJYF = 0.0;
-		String sql2 = "select sum(qsje) qsjes,mmflag from jilu  where  khdm='"+idStr+"'  and flag1='已处理' group by mmflag "; 
+		String sql2 = "select sum(qsje) qsje,mmflag from jilu  where  khdm='"+idStr+"'  and flag1='已处理' group by mmflag "; 
 //		得到Map型的list2
-		List list2 = tBO.sqlQuery(sql2);
+		List list2 = tBO.sqlQuery(sql2,JiluDTO.class);
 		
 		Iterator it2 = list2.iterator();
-		Map _map2=null;
+		JiluDTO _jiluDTO2=null;
 		double qsjemairu=0.0;
 		double qsjemairuAbs=0.0;
 		double qsjemaichu=0.0;
 		for(int i=0;i<list2.size();i++){
-			_map2=(Map)it2.next();
+			_jiluDTO2=(JiluDTO)it2.next();
 			if(i==0){
 				//第一个为买入；为负数，绝对值为大值。
 				
-				qsjemairu = (Double)_map2.get("QSJES");
+				qsjemairu = _jiluDTO2.getQsje();
 				qsjemairuAbs  =Math.abs(qsjemairu);//去绝对值；大值；
 				
 			}else{
 				
 //				第一个为卖出；正数，小值
-				qsjemaichu= (Double)_map2.get("QSJES");
+				qsjemaichu= _jiluDTO2.getQsje();
 			}
 		}
 		
-		String sql2_2 = "select sum(cjje) cjjes,mmflag from jilu  where  khdm='"+idStr+"'  and flag1='已处理' group by mmflag"; 
+		String sql2_2 = "select sum(cjje) cjje,mmflag from jilu  where  khdm='"+idStr+"'  and flag1='已处理' group by mmflag"; 
 //		得到Map型的list2
-		List list2_2 = tBO.sqlQuery(sql2_2);
+		List list2_2 = tBO.sqlQuery(sql2_2,JiluDTO.class);
 		
 		Iterator it2_2 = list2_2.iterator();
-		Map _map2_2=null;
+		JiluDTO _jiluDTO2_2=null;
 		double cjjemairu=0.0;
 		double cjjemaichu=0.0;
 		for(int i=0;i<list2_2.size();i++){
-			_map2_2=(Map)it2_2.next();
+			_jiluDTO2_2=(JiluDTO)it2_2.next();
 			if(i==0){
 				//第一个为买入；为负数，绝对值为大值。
 				
-				cjjemairu = (Double)_map2_2.get("CJJES");
+				cjjemairu =_jiluDTO2_2.getCjje();
 				
 			}else{
 				
 //				第一个为卖出；正数，小值
-				cjjemaichu= (Double)_map2_2.get("CJJES");
+				cjjemaichu= _jiluDTO2_2.getCjje();
 			}
 		}
 		
@@ -154,15 +155,15 @@ public class YkfxShowAction extends BaseAction {
 		
 		String sql3 = "select distinct zqdm,zqmc from jilu where  khdm='"+idStr+"'  and flag1='已处理'"; 
 //		得到Map型的list3
-		List list3 = tBO.sqlQuery(sql3);
+		List list3 = tBO.sqlQuery(sql3,JiluDTO.class);
 		
 		Iterator it3 = list3.iterator();
-		Map _map3=null;
+		JiluDTO _jiluDTO3=null;
 		String _zqmc="";
 		String zqmc ="";
 		while(it3.hasNext()){
-			_map3=(Map)it3.next();
-			_zqmc = (String)_map3.get("ZQMC");
+			_jiluDTO3=(JiluDTO)it3.next();
+			_zqmc = _jiluDTO3.getZqmc();
 			zqmc = _zqmc.replace(" ","&nbsp;");
 			zqmc = _zqmc.replace("ST","S&nbsp;T&nbsp;");
 			//美化下字符；
@@ -171,7 +172,7 @@ public class YkfxShowAction extends BaseAction {
 	    
 			}
 			
-			zqmcMap.put((String)_map3.get("ZQDM"),zqmc);		
+			zqmcMap.put(_jiluDTO3.getZqdm(),zqmc);		
 		}
 		
 		
@@ -180,17 +181,17 @@ public class YkfxShowAction extends BaseAction {
 		String sql4 = "select sum(shuju) shuju from data where name='股息红利' and  flag2='"+idStr+"'"; 
 //		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4);
+		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
 		
 		Iterator it4 = list4.iterator();
-		Map _map4=null;
+		
 		
 		
 		
 		
 		if(it4.hasNext()){
-			_map4=(Map)it4.next();
-			GXHL  =(Double)_map4.get("SHUJU");
+			DataDTO _dataDTO=(DataDTO)it4.next();
+			GXHL  =_dataDTO.getShuju();
 			if(GXHL==null){
 				GXHL=0.0;
 			}

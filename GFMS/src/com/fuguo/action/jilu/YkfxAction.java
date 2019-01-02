@@ -28,8 +28,9 @@ import com.fuguo.bo.OrderBO;
 import com.fuguo.dto.GpmcDTO;
 import com.fuguo.dto.JiluDTO;
 import com.fuguo.dto.LsjgdateDTO;
-import com.fuguo.util.StockUtil;
+import com.fuguo.dto.OrderDTO;
 import com.fuguo.util.DateUtil;
+import com.fuguo.util.StockUtil;
 /** 
  * MyEclipse Struts
  * Creation date: 03-21-2008
@@ -56,17 +57,17 @@ public class YkfxAction extends BaseAction {
 		int cysl=0;
 		double dqsz=0;
 		OrderBO uBO =new OrderBO();
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'", OrderDTO.class);
 		StockUtil sUtil = new StockUtil();
 		Iterator itTMP = listTMP.iterator();
-		Map _map=null;
+		OrderDTO _orderDTO=null;
 		Map<String,Double> mapGupiaoShizhi=new HashMap<String,Double>();
 		while(itTMP.hasNext()){
-			_map=(Map)itTMP.next();
+			_orderDTO=(OrderDTO)itTMP.next();
 			
-			String zqdm = (String)_map.get("ZQDM");
+			String zqdm = _orderDTO.getZqdm();
 			
-			cysl = (Integer)_map.get("CYSL");
+			cysl = _orderDTO.getCysl();
 			
 			dqj = sUtil.getDqjByZqdm(zqdm);//当前价；
 			dqsz = dqj*cysl;
@@ -85,7 +86,7 @@ public class YkfxAction extends BaseAction {
 		//循环处理每一个id
 		JiluDTO tDTO;
 		StringBuffer sb =new StringBuffer(); ; 
-		sb.append("select distinct a.zqdm, qsjes from ( select sum(qsje) qsjes,zqdm  from jilu where  khdm='"+idStr+"' and ( ");
+		sb.append("select distinct a.zqdm, qsje from ( select sum(qsje) qsje,zqdm  from jilu where  khdm='"+idStr+"' and ( ");
 		
 		
 		for(int i=0;i<ids_Str.length;i++ ){
@@ -105,7 +106,7 @@ public class YkfxAction extends BaseAction {
 //		调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		//生成符合要求的JiluDTO数据
 //		解析list<Map>；
 		List listDTOs=new ArrayList();
@@ -121,15 +122,15 @@ public class YkfxAction extends BaseAction {
 		LsjgdateDTO lsjgdateDTO;
 		
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new JiluDTO();
-			mDTO.setId((Integer)_map.get("ID"));
-			zqdm = (String)_map.get("ZQDM");
-			mDTO.setZqdm(zqdm);	
+			mDTO=(JiluDTO)it.next();
+			
+			
+			zqdm = mDTO.getZqdm();
+				
 			//通过证券代码获取证券名称
 			gpmcDTO.setZqdm(zqdm);
 			mDTO.setZqmc(gpmcBO.query(gpmcDTO).getZqmc());
-			qsje = (Double)_map.get("QSJES");
+			qsje = mDTO.getQsje();
 			
 			//判断当前持有的股票里是否含有该股票；如果包含，则需要加上该股票的市值；
 			if(mapGupiaoShizhi.containsKey(zqdm)){
@@ -157,13 +158,13 @@ public class YkfxAction extends BaseAction {
 			
 			String sqlJiluDateMinMax = "select min(jysj) jiludateMin,max(jysj) jiludateMax from jilu where khdm='"+idStr+"' and  zqdm='"+zqdm+"'";
 			
-			List listJiluDateMinMax = tBO.sqlQuery(sqlJiluDateMinMax);
+			List listJiluDateMinMax = tBO.sqlQuery(sqlJiluDateMinMax,JiluDTO.class);
 			if(!listJiluDateMinMax.isEmpty()){
-				_map = (Map)listJiluDateMinMax.get(0);
+				JiluDTO jiluDTO = (JiluDTO)listJiluDateMinMax.get(0);
 				
 				
-				mDTO.setJiludateMin((Date)_map.get("JILUDATEMIN"));
-				mDTO.setJiludateMax((Date)_map.get("JILUDATEMAX"));
+				mDTO.setJiludateMin(jiluDTO.getJiludateMin());
+				mDTO.setJiludateMax(jiluDTO.getJiludateMax());
 			}
 			
 			//股票K线更新日期起始段

@@ -194,7 +194,7 @@ public class CSVUtil {
 	        	//*****需要通过日期和证券代码查找，如果已经存在，则不需要添加
 	        	   String sql = "select * from lsjg where zqdm='"+zqdm+"'and date(date)='"+dateSql+"'";
 	        	   System.out.println(sql);
-	        	   List listLsjg = lsjgBO.sqlQuery(sql);  
+	        	   List listLsjg = lsjgBO.sqlQuery(sql,LsjgDTO.class);  
 	        	   if(listLsjg.size()<1){
 	        		   lsjgBO.add(lsjgDTO);
 	        	   }

@@ -22,6 +22,7 @@ import com.fuguo.bo.DataBO;
 import com.fuguo.bo.ListBO;
 import com.fuguo.bo.OrderBO;
 import com.fuguo.dto.ConfigDTO;
+import com.fuguo.dto.DataDTO;
 import com.fuguo.dto.ListDTO;
 import com.fuguo.dto.OrderDTO;
 import com.fuguo.util.StockUtil;
@@ -33,7 +34,7 @@ public class OrderShowAction extends BaseAction {
 //		 TODO 自动生成方法存根
 		ListBO lBO =new ListBO();
 		lBO.sqlUpdateOrDel("delete from list where cysl=0");
-		OrderBO uBO =new OrderBO();
+		OrderBO uBO =new OrderBO();  
 		
 		uBO.sqlUpdateOrDel("delete from order where cysl=0");
 		
@@ -56,10 +57,10 @@ public class OrderShowAction extends BaseAction {
 		
 		
 //      完全可以用hql
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'",OrderDTO.class);
 		
 		Iterator it = listTMP.iterator();
-		Map _map=null;
+		
 		OrderDTO mDTO;
 		
 		StockUtil sUtil = new StockUtil();
@@ -77,16 +78,15 @@ public class OrderShowAction extends BaseAction {
 		List list=new ArrayList();
 		String baojingmessage="\n";
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new OrderDTO();
-			mDTO.setId((Integer)_map.get("ID"));
-			mDTO.setZqmc((String)_map.get("ZQMC"));
-			String zqdm = (String)_map.get("ZQDM");
-			mDTO.setZqdm(zqdm);
-			cysl = (Integer)_map.get("CYSL");
-			mDTO.setCysl(cysl);
-			cbj = (Double)_map.get("CBJ");
-			mDTO.setCbj(cbj);
+			mDTO=(OrderDTO)it.next();
+			
+			
+			String zqdm = mDTO.getZqdm();
+			
+			cysl = mDTO.getCysl();
+			
+			cbj = mDTO.getCbj();
+			
 			
 			dqj = sUtil.getDqjByZqdm(zqdm);//当前价；
 			isJiJin = sUtil.isJiJin(zqdm);//判断是否为基金；
@@ -125,21 +125,18 @@ public class OrderShowAction extends BaseAction {
 			
 //			调用业务逻辑层
 			//得到Map型的list
-			List list2 = lBO.sqlQuery(sql2);
+			List list2 = lBO.sqlQuery(sql2,ListDTO.class);
 			List<ListDTO> listDTO2=new ArrayList<ListDTO>();
 			Iterator it2 = list2.iterator();
 			ListDTO aDTO;
-			String listStr=(String)_map.get("ZQMC")+"(<font color='red'>"+zqdm+"</font>)：&nbsp;&nbsp;&nbsp;";
+			String listStr=mDTO.getZqmc()+"(<font color='red'>"+zqdm+"</font>)：&nbsp;&nbsp;&nbsp;";
 			while(it2.hasNext()){
-				_map=(Map)it2.next();
-				aDTO=new ListDTO();
-				//mDTO.setId((Integer)_map.get("ID"));
+				aDTO=(ListDTO)it2.next();
+				
 				aDTO.setZqdm(zqdm);
-				aDTO.setZqmc((String)_map.get("ZQMC"));
-				aDTO.setCysl((Integer)_map.get("CYSL"));
-				aDTO.setJifl((String)_map.get("JIFL"));
+				
 
-				listStr+="<font color='blue'>"+(String)_map.get("JIFL")+"</font>:<font color='red'>"+(Integer)_map.get("CYSL")+"</font>股；";
+				listStr+="<font color='blue'>"+aDTO.getJifl()+"</font>:<font color='red'>"+aDTO.getCysl()+"</font>股；";
 			}
 			mDTO.setListStr(listStr);
 			
@@ -152,17 +149,17 @@ public class OrderShowAction extends BaseAction {
 		String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
 //		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4);
+		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
 		
 		Iterator it4 = list4.iterator();
-		Map _map4=null;
+		DataDTO _dataDTO4=null;
 		
 		
 		
 		
 		if(it4.hasNext()){
-			_map4=(Map)it4.next();
-			KYZJ  =(Double)_map4.get("SHUJU");
+			_dataDTO4=(DataDTO)it4.next();
+			KYZJ  =_dataDTO4.getShuju();
 			if(KYZJ==null){
 				KYZJ=0.0;
 			}

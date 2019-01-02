@@ -60,22 +60,8 @@ public class JuesefunctionPreManageAction extends BaseAction {
 		
 		//调用业务逻辑，显示角色已有的权限
 		JuesefunctionBO juesefunctionBO = new JuesefunctionBO();
-		List list = juesefunctionBO.sqlQuery("select jf.juesename,jf.functioncode,f.funcname from Juesefunction jf,function f where jf.juesename='"+juesename+"' and jf.functioncode=f.functioncode");
-		//将list转换为 FunctionDTOS；
-//		解析list<Map>；
-		List listDTOs=new ArrayList();
-		Iterator it = list.iterator();
-		Map _map=null;
-		FunctionDTO mDTO;
-		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new FunctionDTO();
-			mDTO.setFunctioncode((String)_map.get("FUNCTIONCODE"));
-			mDTO.setFuncname((String)_map.get("FUNCNAME"));
-
-			listDTOs.add(mDTO);
-		}
-		
+		//还是可以用sqlquery查询
+		List listDTOs = juesefunctionBO.sqlQuery("select jf.functioncode,f.funcname from Juesefunction jf,function f where jf.juesename='"+juesename+"' and jf.functioncode=f.functioncode",FunctionDTO.class);
 		
 		request.setAttribute("MYFUNCTIONDTOS",listDTOs);
 		

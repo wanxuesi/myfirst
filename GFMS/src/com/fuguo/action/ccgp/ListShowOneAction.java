@@ -50,17 +50,17 @@ public class ListShowOneAction extends BaseAction {
 		double dqsz=0;
 		ListBO uBO =new ListBO();
 //		完全可以用hql
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,jifl from list where flag1='"+idStr+"' and zqdm='"+zqdm+"'");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,jifl from list where flag1='"+idStr+"' and zqdm='"+zqdm+"'",ListDTO.class);
 		StockUtil sUtil = new StockUtil();
 		Iterator itTMP = listTMP.iterator();
-		Map _map=null;
+		ListDTO _listDTO=null;
 		Map<String,Double> mapjifl=new HashMap<String,Double>();
 		while(itTMP.hasNext()){
-			_map=(Map)itTMP.next();
+			_listDTO=(ListDTO)itTMP.next();
 			
-			String _zqdm = (String)_map.get("ZQDM");
-			String jifl = (String)_map.get("JIFL");
-			cysl = (Integer)_map.get("CYSL");
+			String _zqdm = _listDTO.getZqdm();
+			String jifl = _listDTO.getJifl();
+			cysl = _listDTO.getCysl();
 			
 			dqj = sUtil.getDqjByZqdm(_zqdm);//当前价；
 			dqsz = dqj*cysl;
@@ -71,26 +71,26 @@ public class ListShowOneAction extends BaseAction {
 		
 		
 		
-		String sql = "select jifl, sum(qsje) qsjes from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"' group by jifl"; 
+		String sql = "select jifl, sum(qsje) qsje from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"' group by jifl"; 
 		
 //		调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		List listDTOs=new ArrayList();
 		Iterator it = list.iterator();
 		Double qsje=0.0;
 		//Map _map=null;
 		JiluDTO mDTO;
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new JiluDTO();
+			mDTO=(JiluDTO)it.next();
+			
 			//mDTO.setId((Integer)_map.get("ID"));
 			mDTO.setZqdm(zqdm);
 			//mDTO.setZqmc((String)_map.get("ZQMC"));
-			String _jifl = (String)_map.get("JIFL");
+			String _jifl = mDTO.getJifl();
 			mDTO.setJifl(_jifl);
-			qsje = (Double)_map.get("QSJES");
+			qsje = mDTO.getQsje();
 			
 			//判断当前持有的股票里是否含有该股票；如果包含，则需要加上该股票的市值；
 			if(mapjifl.containsKey(_jifl)){
@@ -107,27 +107,8 @@ public class ListShowOneAction extends BaseAction {
 		
 //		调用业务逻辑层
 		//得到Map型的list
-		List list2 = tBO.sqlQuery(sql2);
-		List listDTO2=new ArrayList();
-		Iterator it2 = list2.iterator();
-		ListDTO aDTO;
+		List listDTO2 = tBO.sqlQuery(sql2,ListDTO.class);
 		
-		
-		
-		
-		
-		
-		while(it2.hasNext()){
-			_map=(Map)it2.next();
-			aDTO=new ListDTO();
-			//mDTO.setId((Integer)_map.get("ID"));
-			aDTO.setZqdm(zqdm);
-			aDTO.setZqmc((String)_map.get("ZQMC"));
-			aDTO.setCysl((Integer)_map.get("CYSL"));
-			aDTO.setJifl((String)_map.get("JIFL"));
-
-			listDTO2.add(aDTO);
-		}
 		
 		ListDTO lDTO=null;
 		String dataStr="[";
@@ -169,18 +150,18 @@ public class ListShowOneAction extends BaseAction {
 		
 		//得出该股票的清算金额qsjes
 		
-		sql = "select sum(qsje) qsjes from jilu where  khdm='"+idStr+"' and  zqdm='"+zqdm+"'"; 
+		sql = "select sum(qsje) qsje from jilu where  khdm='"+idStr+"' and  zqdm='"+zqdm+"'"; 
 		
 //		调用业务逻辑层
 		
 		//得到Map型的list
-		List list3 = tBO.sqlQuery(sql);
+		List list3 = tBO.sqlQuery(sql,JiluDTO.class);
 		Iterator it3 = list3.iterator();
-		_map=null;
+		
 		if(it3.hasNext()){
-			_map=(Map)it3.next();
+			JiluDTO jiluDTO=(JiluDTO)it3.next();
 						
-			qsjes = (Double)_map.get("QSJES");
+			qsjes = jiluDTO.getQsje();
 			
 		}
 		
@@ -191,7 +172,7 @@ public class ListShowOneAction extends BaseAction {
 		
 		OrderBO oBO = new OrderBO();
 //		完全可以用hql
-		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'");
+		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'",OrderDTO.class);
 				
 		Iterator itOrder = listOrder.iterator();
 		
@@ -201,11 +182,11 @@ public class ListShowOneAction extends BaseAction {
 		double newCbj=0;
 		String zqmc="";
 		if(itOrder.hasNext()){
-			_map=(Map)itOrder.next();
-			cysl = (Integer)_map.get("CYSL");//原来的持有数量
-			cbj  =(Double)_map.get("CBJ");//原来的成本
+			OrderDTO orderDTO=(OrderDTO)itOrder.next();
+			cysl = orderDTO.getCysl();//原来的持有数量
+			cbj  =orderDTO.getCbj();//原来的成本
 			
-			zqmc = (String)_map.get("ZQMC");
+			zqmc = orderDTO.getZqmc();
 		}
 				
 		xnQsje = cbj*cysl;

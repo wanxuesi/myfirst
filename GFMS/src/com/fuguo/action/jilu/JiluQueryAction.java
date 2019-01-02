@@ -97,7 +97,7 @@ public class JiluQueryAction extends BaseAction {
 		
 		//复杂的sql还是用sql吧！
 		//sb.append("select * from weekplan where 1>0 ");
-		sb.append("select ID,ZQDM,ZQMC,JYSJ,MMFLAG,JIFL,FLAG1,CJJG,CJSL,CJJE,QSJE,GDMC from jilu where khdm='"+idStr+"' ");
+		sb.append("select * from jilu where khdm='"+idStr+"' ");
 		
 		DateUtil dateUtil=new DateUtil();
 
@@ -159,12 +159,12 @@ public class JiluQueryAction extends BaseAction {
 		//调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		//生成符合要求的JiluDTO数据
 //		解析list<Map>；
 		List listDTOs=new ArrayList();
 		Iterator it = list.iterator();
-		Map _map=null;
+		JiluDTO _jiluDTO=null;
 		JiluDTO mDTO;
 		SimpleDateFormat   sdf   =   new   SimpleDateFormat("yyyy-MM-dd HH:mm");
 		//DateUtil dateUtil=new DateUtil();
@@ -177,30 +177,8 @@ public class JiluQueryAction extends BaseAction {
 		String jysjWeek;
 		
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new JiluDTO();
-			mDTO.setId((Integer)_map.get("ID"));
-			mDTO.setZqdm((String)_map.get("ZQDM"));
-			mDTO.setZqmc((String)_map.get("ZQMC"));
-			
-			mDTO.setJysj((Date)_map.get("JYSJ"));
-			
-			mDTO.setCjsl((Integer)_map.get("CJSL"));
-			mDTO.setMmflag((String)_map.get("MMFLAG"));
-			mDTO.setJifl((String)_map.get("JIFL"));
-			
-			mDTO.setFlag1((String)_map.get("FLAG1"));
-			
-			mDTO.setCjjg((Double)_map.get("CJJG"));
-			
-			mDTO.setCjje((Double)_map.get("CJJE"));
-			mDTO.setQsje((Double)_map.get("QSJE"));
-			
-			mDTO.setGdmc((String)_map.get("GDMC"));//股东名称
-			
-			
-
-			
+			mDTO=(JiluDTO)it.next();
+		
 			jysj=mDTO.getJysj();
 			if(jysj!=null&& !jysj.equals("")){
 				jysjStr=sdf.format(jysj);
@@ -208,9 +186,6 @@ public class JiluQueryAction extends BaseAction {
 				jysjStr=jysjStr.replace(" ","<br>");
 				mDTO.setJysjStr(jysjStr+jysjWeek);
 			}
-	
-			
-
 
 			listDTOs.add(mDTO);
 		}

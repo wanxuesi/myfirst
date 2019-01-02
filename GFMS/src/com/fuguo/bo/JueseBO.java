@@ -140,12 +140,7 @@ public List sqlQuery(String sql,Class classArg) throws BSWException {
 	return list;
 }
 
-public List sqlQuery(String sql) throws BSWException {
-	juesePO=new JuesePO();
-	List list =juesePO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 
 /**
@@ -156,13 +151,13 @@ public List sqlQuery(String sql) throws BSWException {
 public Map getJueses() throws BSWException{
 	Map map=new HashMap();
 	juesePO=new JuesePO();
-	List list =juesePO.sqlQuery("select name from juese");
+	List list =juesePO.sqlQuery("select name from juese",JueseDTO.class);
 	//½âÎölist<Map>£»
 	Iterator it = list.iterator();
-	Map _map=null;
+	JueseDTO jueseDTO=null;
 	while(it.hasNext()){
-		_map=(Map)it.next();
-		map.put(_map.get("NAME"),_map.get("NAME"));
+		jueseDTO=(JueseDTO)it.next();
+		map.put(jueseDTO.getName(),jueseDTO.getName());
 	}
 	
 	

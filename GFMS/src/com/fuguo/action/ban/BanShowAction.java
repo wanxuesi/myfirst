@@ -33,24 +33,9 @@ public class BanShowAction extends BaseAction {
 	public void myexecute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		DanweiBO d=new DanweiBO();
 		String sql="select d1.*,d2.name as parentName from danwei d1,danwei d2 where d1.parent=d2.id and d1.parent>0 order by parentName";
-		List listtmp = d.sqlQuery(sql);
+		List<DanweiDTO> list = d.sqlQuery(sql,DanweiDTO.class);
 		
-		List list=new ArrayList();
 		
-		//½âÎölisttmp<Map>£»
-		Iterator it = listtmp.iterator();
-		Map _map=null;
-		DanweiDTO danweiDTO;
-		while(it.hasNext()){
-			_map=(Map)it.next();
-			danweiDTO=new DanweiDTO();
-			danweiDTO.setId((Integer)_map.get("ID"));
-			danweiDTO.setParent((Integer)_map.get("PARENT"));
-			danweiDTO.setParentName((String)_map.get("PARENTNAME"));
-			danweiDTO.setName((String)_map.get("NAME"));
-			//danweiDTO.setBz((String)_map.get("BZ"));
-			list.add(danweiDTO);
-		}
 		
 		
 		request.setAttribute("BANLIST",list);

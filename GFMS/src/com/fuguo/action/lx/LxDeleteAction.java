@@ -20,6 +20,7 @@ import bsw.tools.exception.BSWException;
 
 import com.fuguo.bo.ListBO;
 import com.fuguo.bo.LxBO;
+import com.fuguo.dto.ListDTO;
 import com.fuguo.dto.LxDTO;
 import com.fuguo.form.LxForm;
 
@@ -58,16 +59,16 @@ public class LxDeleteAction extends BaseAction {
 	    }
 		//需要查询list中有无该类型的记录，如果有，则无法删除；
 		ListBO uBO =new ListBO();
-		List listTMP = uBO.sqlQuery("select distinct jifl from  list where flag1='"+idStr+"'");
+		List listTMP = uBO.sqlQuery("select distinct jifl from  list where flag1='"+idStr+"'",ListDTO.class);
 		
 		Iterator itTMP = listTMP.iterator();
-		Map _map=null;
+		ListDTO listDTO=null;
 		Map<String,String> mapjifl=new HashMap<String,String>();
 		while(itTMP.hasNext()){
-			_map=(Map)itTMP.next();
+			listDTO=(ListDTO)itTMP.next();
 			
 			
-			String jifl = (String)_map.get("JIFL");
+			String jifl = listDTO.getJifl();
 			
 			
 			mapjifl.put(jifl,jifl);

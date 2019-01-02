@@ -2,7 +2,6 @@
 // XSL source (default): platform:/plugin/com.genuitec.eclipse.cross.easystruts.eclipse_4.1.0/xslt/JavaClass.xsl
 
 package com.fuguo.action.data;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,6 +22,9 @@ import com.fuguo.bo.DataBO;
 import com.fuguo.bo.JiluBO;
 import com.fuguo.bo.LsjgBO;
 import com.fuguo.bo.LsjgdateBO;
+import com.fuguo.dto.DataDTO;
+import com.fuguo.dto.JiluDTO;
+import com.fuguo.dto.LsjgDTO;
 import com.fuguo.dto.LsjgdateDTO;
 import com.fuguo.form.Query_Of_AllForm;
 import com.fuguo.util.DateUtil;
@@ -89,7 +91,7 @@ public class DataJingzhiZxtAction extends BaseAction {
 		DataBO dBO  =new DataBO();
 		LsjgdateBO lsjgdateBO = new LsjgdateBO();
 		//复杂的sql还是用sql吧！
-		String sqlStart = "select zqdm,sum(qsje) sumqsje ,sum(cjsl) sumcjsl  from jilu  where   khdm='"+idStr+"' ";
+		String sqlStart = "select zqdm,sum(qsje) qsje ,sum(cjsl) cjsl  from jilu  where   khdm='"+idStr+"' ";
 		String sql="";
 		String sqlEnd =" group by zqdm";
 		for(int i=0;i<daysNumbers;i++){
@@ -144,10 +146,10 @@ public class DataJingzhiZxtAction extends BaseAction {
 			
 			//System.out.println(sql);
 			//执行sql语句
-			List listJilu = jiluBO.sqlQuery(sql);
+			List listJilu = jiluBO.sqlQuery(sql,JiluDTO.class);
 			// 解析list<Map>；
 			Iterator itJilu = listJilu.iterator();
-			Map _map=null;
+			JiluDTO _jiluDTO=null;
 			String zqdm="";
 			double allSumQsje=0;
 			double sumQsje=0;
@@ -163,11 +165,11 @@ public class DataJingzhiZxtAction extends BaseAction {
 			
 			String sqlWhereDateTp=" and (date(date)<'"+first_lastDay+"') ";//停牌
 			while(itJilu.hasNext()){
-				_map=(Map)itJilu.next();
-				zqdm = (String)_map.get("ZQDM");
+				_jiluDTO=(JiluDTO)itJilu.next();
+				zqdm = (String)_jiluDTO.getZqdm();
 				System.out.println(zqdm);
-				sumQsje = (Double)_map.get("SUMQSJE");
-				sumCjsl = (Integer)_map.get("SUMCJSL");
+				sumQsje = (Double)_jiluDTO.getQsje();
+				sumCjsl = (Integer)_jiluDTO.getCjsl();
 				
 				//将每一行的sumqsje 加到allSumQsje上；
 				allSumQsje+=sumQsje;
@@ -197,22 +199,22 @@ public class DataJingzhiZxtAction extends BaseAction {
 						String lsjgSql ="select zqdm,date,close,fqyz from lsjg where zqdm='"+zqdm+"' and flag1!='tmp' and date in(select max(date) maxdate  from lsjg where   flag1!='tmp' and zqdm='"+zqdm+"' "+sqlWhereDate+")"; 	
 						//System.out.println(lsjgSql);
 						//						执行sql语句
-						List listLsjg = lsjgBO.sqlQuery(lsjgSql);
+						List listLsjg = lsjgBO.sqlQuery(lsjgSql,LsjgDTO.class);
 						// 解析list<Map>；
 						Iterator itLsjg = listLsjg.iterator();
-						Map _mapLsjg=null;
+						LsjgDTO _lsjgDTO=null;
 						close=0;
 						if(itLsjg.hasNext()){
-							_mapLsjg=(Map)itLsjg.next();
+							_lsjgDTO=(LsjgDTO)itLsjg.next();
 							
 							if(userZhanghaoLB.equals("实际")){								
 								//如果是实际账号，分析的时候，必须用收盘价；
-								close = (Double)_mapLsjg.get("CLOSE");
+								close = _lsjgDTO.getClose();
 							}
 							if(userZhanghaoLB.equals("虚拟")){								
 //								如果是虚拟账号，分析的时候，必须用adjClose；
-								fqyz = (Double)_mapLsjg.get("FQYZ");
-								close = (Double)_mapLsjg.get("CLOSE");
+								fqyz = _lsjgDTO.getFqyz();
+								close = _lsjgDTO.getClose();
 								//通过上面三个参数，获得到adjClose 再返回给close；
 								close = (close/maxFqyzNow)*fqyz;
 								
@@ -237,22 +239,22 @@ public class DataJingzhiZxtAction extends BaseAction {
 									String lsjgSql2 ="select zqdm,date,close,fqyz from lsjg where zqdm='"+zqdm+"' and flag1!='tmp'   and date in(select max(date) maxdate  from lsjg where zqdm='"+zqdm+"' and flag1!='tmp'  "+sqlWhereDateTp+")"; 	
 									//System.out.println(lsjgSql2);
 									//						执行sql语句
-									List listLsjg2 = lsjgBO.sqlQuery(lsjgSql2);
+									List listLsjg2 = lsjgBO.sqlQuery(lsjgSql2,LsjgDTO.class);
 									// 解析list<Map>；
 									Iterator itLsjg2 = listLsjg2.iterator();
-									Map _mapLsjg2=null;
+									LsjgDTO _lsjgDTO2=null;
 									close=0;
 									if(itLsjg2.hasNext()){
-										_mapLsjg2=(Map)itLsjg2.next();
+										_lsjgDTO2=(LsjgDTO)itLsjg2.next();
 										
 										if(userZhanghaoLB.equals("实际")){								
 											//如果是实际账号，分析的时候，必须用收盘价；
-											close = (Double)_mapLsjg2.get("CLOSE");
+											close = _lsjgDTO2.getClose();
 										}
 										if(userZhanghaoLB.equals("虚拟")){								
 //											如果是虚拟账号，分析的时候，必须用adjClose；
-											fqyz = (Double)_mapLsjg2.get("FQYZ");
-											close = (Double)_mapLsjg2.get("CLOSE");
+											fqyz = _lsjgDTO2.getFqyz();
+											close = _lsjgDTO2.getClose();
 											//通过上面三个参数，获得到adjClose 再返回给close；
 											close = (close/maxFqyzNow)*fqyz;
 											
@@ -289,17 +291,17 @@ public class DataJingzhiZxtAction extends BaseAction {
 	  			Double DQFE = 0.0;
 	  			String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null) "+sqlwhereDQFE; 
 //	  			得到Map型的list5
-	  			List list5 =dBO.sqlQuery(sql5);
+	  			List list5 =dBO.sqlQuery(sql5,DataDTO.class);
 	  			
 	  			Iterator it5 = list5.iterator();
-	  			Map _map5=null;
+	  			DataDTO _dataDTO=null;
 	  			
 	  			
 	  			
 	  			
 	  			if(it5.hasNext()){
-	  				_map5=(Map)it5.next();
-	  				DQFE  =(Double)_map5.get("FENE");
+	  				_dataDTO=(DataDTO)it5.next();
+	  				DQFE  =_dataDTO.getFene();
 	  				if(DQFE==null){
 	  					DQFE=0.0;
 	  				}

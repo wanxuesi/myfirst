@@ -22,6 +22,7 @@ import bsw.tools.exception.BSWException;
 import com.fuguo.bo.GpmcBO;
 import com.fuguo.bo.LsjgBO;
 import com.fuguo.dto.GpmcDTO;
+import com.fuguo.dto.LsjgDTO;
 import com.fuguo.util.DateUtil;
 
 /** 
@@ -80,10 +81,10 @@ public class VolAutoFxAction extends BaseAction {
 			
 			tDTO = tBO.query(tDTO);//还需要对查询出来的数据，进行日期（成交量）的3个添加；
 
-			List listLsjg = lBO.sqlQuery(sql);
+			List listLsjg = lBO.sqlQuery(sql,LsjgDTO.class);
 			//解析这三历史价格记录
 			Iterator it = listLsjg.iterator();
-			Map _map=null;
+			LsjgDTO _lsjgDTO=null;
 			Date dateDate=new Date();
 			String dateStr="";
 			Double volDouble=0.0d;
@@ -92,9 +93,9 @@ public class VolAutoFxAction extends BaseAction {
 			int j=0;
 			while(it.hasNext()){
 				
-				_map=(Map)it.next();
-				dateDate = (Date)_map.get("DATE");
-				volDouble = (Double)_map.get("VOLUME");
+				_lsjgDTO=(LsjgDTO)it.next();
+				dateDate = _lsjgDTO.getDate();
+				volDouble = _lsjgDTO.getVolume();
 				//先转换成String；
 				result=sdf.format(dateDate)+"["+String.valueOf(volDouble).replace(".0","")+"]";
 				if(dateDate.getTime()>=redDate.getTime()){

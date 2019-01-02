@@ -142,12 +142,6 @@ public List sqlQuery(String sql,Class classArg) throws BSWException {
 	return list;
 }
 
-public List sqlQuery(String sql) throws BSWException {
-	lxPO=new LxPO();
-	List list =lxPO.sqlQuery(sql);
-	
-	return list;
-}
 
 
 /**
@@ -168,14 +162,14 @@ public Map getLxs() throws BSWException{
 	String idStr  =Integer.toString(idUser);
 	
 	lxPO=new LxPO();
-	List list =lxPO.sqlQuery("select id, name from lx where flag1='"+idStr+"' or flag1='' or flag1 is Null  order by  id");
+	List list =lxPO.sqlQuery("select id, name from lx where flag1='"+idStr+"' or flag1='' or flag1 is Null  order by  id",LxDTO.class);
 	
 	//½âÎölist<Map>£»
 	Iterator it = list.iterator();
-	Map _map=null;
+	LxDTO _lxDTO=null;
 	while(it.hasNext()){
-		_map=(Map)it.next();
-		map.put(_map.get("NAME"),_map.get("NAME"));
+		_lxDTO=(LxDTO)it.next();
+		map.put(_lxDTO.getName(),_lxDTO.getName());
 	}
 	
 	
@@ -193,19 +187,19 @@ public List<DwrDTO> getLxsList() throws BSWException{
 
 	List l=new ArrayList();
 	lxPO=new LxPO();
-	List list =lxPO.sqlQuery("select id, name,flag2 from lx where (flag1='"+idStr+"' or flag1='' or flag1 is Null) and  flag2!=''   order by  id");
+	List list =lxPO.sqlQuery("select * from lx where (flag1='"+idStr+"' or flag1='' or flag1 is Null) and  flag2!=''   order by  id",LxDTO.class);
 	//½âÎölist<Map>£»
 	Iterator it = list.iterator();
-	Map _map=null;
+	LxDTO _lxDTO=null;
 	DwrDTO dwrDTO;
 	while(it.hasNext()){
-		_map=(Map)it.next();
-		String tmp = (String)_map.get("FLAG2");
+		_lxDTO=(LxDTO)it.next();
+		String tmp = _lxDTO.getFlag2();
 		if(tmp.contains("f")||tmp.contains("F")){
 			continue;
 		}
 		dwrDTO=new DwrDTO();
-		dwrDTO.setName((String)_map.get("NAME"));
+		dwrDTO.setName(_lxDTO.getName());
 		l.add(dwrDTO);
 	}
 	

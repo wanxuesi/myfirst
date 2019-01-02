@@ -186,7 +186,7 @@ public class CqAction extends BaseAction {
         ListBO lBO = new ListBO();
         ListDTO lDTO = new ListDTO();
         //完全可以用hql
-        List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'");
+        List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'",ListDTO.class);
 		
         
 
@@ -195,7 +195,7 @@ public class CqAction extends BaseAction {
 
 
 //		一种是有该jifl；
-		Map _maplist=null;
+		ListDTO _listDTO=null;
 		Integer cysllist=0;
 		
 		Integer idList = 0;
@@ -212,11 +212,11 @@ public class CqAction extends BaseAction {
 	        	kpai=paiDouble/baseNumb;
 	     }
 		while(itlist.hasNext()){
-			_maplist=(Map)itlist.next();
-			idList = (Integer)_maplist.get("ID");
-			cysllist = (Integer)_maplist.get("CYSL");//原来的持有数量
+			_listDTO=(ListDTO)itlist.next();
+			idList = _listDTO.getId();
+			cysllist = _listDTO.getCysl();//原来的持有数量
 			
-			jifl = (String)_maplist.get("JIFL");//
+			jifl = _listDTO.getJifl();//
 			
 			
 	        
@@ -266,7 +266,7 @@ public class CqAction extends BaseAction {
         OrderBO oBO = new OrderBO();
 		OrderDTO oDTO = new OrderDTO();
 //		完全可以用hql
-		List list =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'");
+		List list =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+idStr+"' and  zqdm='"+zqdm+"'",OrderDTO.class);
 
 //		说明有该记录，直接在orderUpdate;
 		oDTO.setZqdm(zqdm);
@@ -274,16 +274,16 @@ public class CqAction extends BaseAction {
 		
 		Iterator it = list.iterator();
 		
-		Map _map=null;
+		OrderDTO _orderDTO=null;
 		Integer cysl=0;
 		double cbj=0;
 		Integer id=0;
 		if(it.hasNext()){
-			_map=(Map)it.next();
-			id = (Integer)_map.get("ID");
-			cysl = (Integer)_map.get("CYSL");//原来的持有数量
+			_orderDTO=(OrderDTO)it.next();
+			id = _orderDTO.getId();
+			cysl = _orderDTO.getCysl();//原来的持有数量
 			
-			cbj  =(Double)_map.get("CBJ");//原来的成本价
+			cbj  =_orderDTO.getCbj();//原来的成本价
 			//cjjes = (Double)_map.get("CJJES");
 		}
 		

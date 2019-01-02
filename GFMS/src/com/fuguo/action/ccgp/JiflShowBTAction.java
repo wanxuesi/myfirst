@@ -21,6 +21,7 @@ import com.fuguo.bo.DataBO;
 import com.fuguo.bo.ListBO;
 import com.fuguo.bo.LxBO;
 import com.fuguo.dto.ConfigDTO;
+import com.fuguo.dto.DataDTO;
 import com.fuguo.dto.ListDTO;
 import com.fuguo.dto.LxDTO;
 import com.fuguo.util.StockUtil;
@@ -91,18 +92,18 @@ public class JiflShowBTAction extends BaseAction {
 		String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
 //		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4);
+		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
 		
 		
 		Iterator it4 = list4.iterator();
-		Map _map4=null;
+		DataDTO dataDTO=null;
 		
 		
 		
 		
 		if(it4.hasNext()){
-			_map4=(Map)it4.next();
-			KYZJ  =(Double)_map4.get("SHUJU");
+			dataDTO=(DataDTO)it4.next();
+			KYZJ  =dataDTO.getShuju();
 			if(KYZJ==null){
 				KYZJ=0.0;
 			}

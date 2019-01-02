@@ -67,7 +67,7 @@ public class LsjgQueryAction extends BaseAction {
 		
 		//复杂的sql还是用sql吧！
 		//sb.append("select * from weekplan where 1>0 ");
-		sb.append("select ID,ZQDM,ZQMC,DATE,CLOSE,OPEN,HIGH,LOW,VOLUME,FQYZ from lsjg where 1>0 ");
+		sb.append("select * from lsjg where 1>0 ");
 		
 		DateUtil dateUtil=new DateUtil();
 
@@ -111,43 +111,12 @@ public class LsjgQueryAction extends BaseAction {
 		//调用业务逻辑层
 		LsjgBO tBO = new LsjgBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
-		//生成符合要求的LsjgDTO数据
-//		解析list<Map>；
-		List listDTOs=new ArrayList();
-		Iterator it = list.iterator();
-		Map _map=null;
-		LsjgDTO mDTO;
-		SimpleDateFormat   sdf   =   new   SimpleDateFormat("yyyy-MM-dd HH:mm");
-		//DateUtil dateUtil=new DateUtil();
-		Date date;
-		
-		//,,,,,,,
-		String fssjStr;
-		String clsjStr;
-		String fssjWeek;
-		String clsjWeek;
-		
-		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new LsjgDTO();
-			mDTO.setId((Integer)_map.get("ID"));
-			mDTO.setZqdm((String)_map.get("ZQDM"));
-			mDTO.setZqmc((String)_map.get("ZQMC"));
-			mDTO.setDate((Date)_map.get("DATE"));
-			mDTO.setOpen((Double)_map.get("OPEN"));
-			mDTO.setClose((Double)_map.get("CLOSE"));
-			mDTO.setHigh((Double)_map.get("HIGH"));
-			
-			mDTO.setLow((Double)_map.get("LOW"));
-			mDTO.setVolume((Double)_map.get("VOLUME"));
-			mDTO.setFqyz((Double)_map.get("FQYZ"));
-			
+		List list = tBO.sqlQuery(sql,LsjgDTO.class);
 
-			listDTOs.add(mDTO);
-		}
 		
-		request.setAttribute("LSJG",listDTOs);
+		
+		
+		request.setAttribute("LSJG",list);
 		request.getSession().setAttribute("queryDateSql",queryDateSql);
 		
 	}

@@ -23,6 +23,7 @@ import com.fuguo.bo.JiluBO;
 import com.fuguo.bo.ListBO;
 import com.fuguo.dto.GpmcDTO;
 import com.fuguo.dto.JiluDTO;
+import com.fuguo.dto.ListDTO;
 import com.fuguo.form.JiluForm;
 import com.fuguo.util.StockUtil;
 
@@ -52,17 +53,17 @@ public class YkfxShowOneAction extends BaseAction {
 		int cysl=0;
 		double dqsz=0;
 		ListBO uBO =new ListBO();
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,jifl from list where  flag1='"+idStr+"' and zqdm='"+zqdm+"'");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,jifl from list where  flag1='"+idStr+"' and zqdm='"+zqdm+"'",ListDTO.class);
 		StockUtil sUtil = new StockUtil();
 		Iterator itTMP = listTMP.iterator();
-		Map _map=null;
+		ListDTO listDTO=null;
 		Map<String,Double> mapjifl=new HashMap<String,Double>();
 		while(itTMP.hasNext()){
-			_map=(Map)itTMP.next();
+			listDTO=(ListDTO)itTMP.next();
 			
-			String _zqdm = (String)_map.get("ZQDM");
-			String jifl = (String)_map.get("JIFL");
-			cysl = (Integer)_map.get("CYSL");
+			String _zqdm = listDTO.getZqdm();
+			String jifl =listDTO.getJifl();
+			cysl =listDTO.getCysl();
 			
 			dqj = sUtil.getDqjByZqdm(_zqdm);//当前价；
 			dqsz = dqj*cysl;
@@ -74,27 +75,27 @@ public class YkfxShowOneAction extends BaseAction {
 		
 		//通过证券代码获取ji类型
 		
-		String sql = "select jifl, sum(qsje) qsjes from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"' group by jifl"; 
+		String sql = "select jifl, sum(qsje) qsje from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"' group by jifl"; 
 		
 //		调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		List listDTOs=new ArrayList();
 		Iterator it = list.iterator();
 		Double qsje=0.0;
 		//Map _map=null;
 		JiluDTO mDTO;
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new JiluDTO();
+			mDTO=(JiluDTO)it.next();
+			
 			//mDTO.setId((Integer)_map.get("ID"));
 			mDTO.setZqdm(zqdm);
 			//mDTO.setZqmc((String)_map.get("ZQMC"));
-			String _jifl = (String)_map.get("JIFL");
+			String _jifl = mDTO.getJifl();
 			mDTO.setJifl(_jifl);
 			
-			qsje = (Double)_map.get("QSJES");
+			qsje = mDTO.getQsje();
 			
 			//判断当前持有的股票里是否含有该股票；如果包含，则需要加上改股票的市值；
 			if(mapjifl.containsKey(_jifl)){

@@ -141,12 +141,6 @@ public List sqlQuery(String sql,Class classArg) throws BSWException {
 	return list;
 }
 
-public List sqlQuery(String sql) throws BSWException {
-	dataPO=new DataPO();
-	List list =dataPO.sqlQuery(sql);
-	
-	return list;
-}
 
 public void sqlUpdateOrDel(String sql) throws BSWException{
 	dataPO=new DataPO();
@@ -160,13 +154,13 @@ public void sqlUpdateOrDel(String sql) throws BSWException{
 public Map getDatas() throws BSWException{
 	Map map=new HashMap();
 	dataPO=new DataPO();
-	List list =dataPO.sqlQuery("select name from data");
+	List list =dataPO.sqlQuery("select name from data",DataDTO.class);
 	//解析list<Map>；
 	Iterator it = list.iterator();
-	Map _map=null;
+	DataDTO dataDTO=null;
 	while(it.hasNext()){
-		_map=(Map)it.next();
-		map.put(_map.get("NAME"),_map.get("NAME"));
+		dataDTO=(DataDTO)it.next();
+		map.put(dataDTO.getName(),dataDTO.getName());
 	}
 	
 	
@@ -192,17 +186,14 @@ public Double getKYZJ() throws BSWException{
 	String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
 //	得到Map型的list4
 
-	List list4 = sqlQuery(sql4);
+	List list4 = sqlQuery(sql4,DataDTO.class);
 	
 	Iterator it4 = list4.iterator();
-	Map _map4=null;
-	
-	
-	
+	DataDTO _dataDTO=null;
 	
 	if(it4.hasNext()){
-		_map4=(Map)it4.next();
-		KYZJ  =(Double)_map4.get("SHUJU");
+		_dataDTO=(DataDTO)it4.next();
+		KYZJ  =_dataDTO.getShuju();
 		if(KYZJ==null){
 			KYZJ=0.0;
 		}
@@ -220,17 +211,14 @@ public Double getKYZJ(String idStr) throws BSWException{
 	String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
 //	得到Map型的list4
 
-	List list4 = sqlQuery(sql4);
+	List list4 = sqlQuery(sql4,DataDTO.class);
 	
 	Iterator it4 = list4.iterator();
-	Map _map4=null;
-	
-	
-	
+	DataDTO _dataDTO=null;
 	
 	if(it4.hasNext()){
-		_map4=(Map)it4.next();
-		KYZJ  =(Double)_map4.get("SHUJU");
+		_dataDTO=(DataDTO)it4.next();
+		KYZJ  =_dataDTO.getShuju();
 		if(KYZJ==null){
 			KYZJ=0.0;
 		}
@@ -249,17 +237,14 @@ public Double getKYZJ(String idStr,String dateStr) throws BSWException{
 	String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利') "+sqlWhereDate; 
 //	得到Map型的list4
 
-	List list4 = sqlQuery(sql4);
+	List list4 = sqlQuery(sql4,DataDTO.class);
 	
 	Iterator it4 = list4.iterator();
-	Map _map4=null;
-	
-	
-	
+	DataDTO _dataDTO=null;
 	
 	if(it4.hasNext()){
-		_map4=(Map)it4.next();
-		KYZJ  =(Double)_map4.get("SHUJU");
+		_dataDTO=(DataDTO)it4.next();
+		KYZJ  =_dataDTO.getShuju();
 		if(KYZJ==null){
 			KYZJ=0.0;
 		}

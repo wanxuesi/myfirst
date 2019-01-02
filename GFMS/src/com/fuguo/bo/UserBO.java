@@ -133,12 +133,7 @@ public List tuplesQuery(String hql) throws BSWException {
  * 
  * @throws BSWException
  */
-public List sqlQuery(String sql) throws BSWException {
-	userPO=new UserPO();
-	List list =userPO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 
 public List sqlQuery(String sql,Class classArg) throws BSWException {
@@ -167,7 +162,7 @@ public static void main(String[] args)throws BSWException{
 //		userDTOs[i].setDwname(dwbmDTO.getName());
 //	}
 	
-//	//解析方法二
+	//解析方法二
 //	UserDTO[] userDTO2s = new UserDTO[list.size()];
 //	Object[] tuple2;
 //	Iterator it=list.iterator();
@@ -182,25 +177,25 @@ public static void main(String[] args)throws BSWException{
 	
 ////测试2：通过sqlQuery 查询多对象结合体（）关联结果放入到List<map>。相对复杂的查询；
 	//注意map中的键要大写，否则没有数据。
-	String sql ="select user.xm,user.dwid,danwei.name from user,danwei where user.dwid = danwei.id";
-	List list = dBO.sqlQuery(sql);
-	UserDTO[] userDTOs = new UserDTO[list.size()];
-	
-	for(int i=0;i<list.size();i++){
-		Map map=(Map)list.get(i);
-		userDTOs[i] =new UserDTO();
-		userDTOs[i].setXm((String)map.get("XM"));
-		userDTOs[i].setDwId((Integer)map.get("DWID"));
-		userDTOs[i].setDwname((String)map.get("NAME"));
-	}	
-
-
-	//测试3：在dto中增加属性（没有与数据库关联），对添加功能的影响；--测试结果为：没有影响。可以添加
-   UserDTO udto = new UserDTO();
-   udto.setDwId(5);
-   udto.setXm("test");
-   //udto.setKl("123");
-   dBO.add(udto);
+//	String sql ="select user.xm,user.dwid,danwei.name from user,danwei where user.dwid = danwei.id";
+//	List list = dBO.sqlQuery(sql);
+//	UserDTO[] userDTOs = new UserDTO[list.size()];
+//	
+//	for(int i=0;i<list.size();i++){
+//		Map map=(Map)list.get(i);
+//		userDTOs[i] =new UserDTO();
+//		userDTOs[i].setXm((String)map.get("XM"));
+//		userDTOs[i].setDwId((Integer)map.get("DWID"));
+//		userDTOs[i].setDwname((String)map.get("NAME"));
+//	}	
+//
+//
+//	//测试3：在dto中增加属性（没有与数据库关联），对添加功能的影响；--测试结果为：没有影响。可以添加
+//   UserDTO udto = new UserDTO();
+//   udto.setDwId(5);
+//   udto.setXm("test");
+//   //udto.setKl("123");
+//   dBO.add(udto);
 	
 //测试通过。dto中增加属性（没有与数据库关联），对查询功能的影响；--测试结果为：没有影响。
 //	String hql = "from UserDTO user";

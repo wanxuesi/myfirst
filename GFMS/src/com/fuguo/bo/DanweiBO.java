@@ -13,6 +13,7 @@ import bsw.tools.exception.BSWException;
 import com.fuguo.dto.DanweiDTO;
 import com.fuguo.dto.DwrDTO;
 import com.fuguo.po.DanweiPO;
+import com.fuguo.po.JuesePO;
 import com.fuguo.po.LxPO;
 
 public class DanweiBO {
@@ -112,7 +113,12 @@ public class DanweiBO {
 		return danweiDTO;
 	}
 
-
+	public List sqlQuery(String sql,Class classArg) throws BSWException {
+		danweiPO=new DanweiPO();
+		List list =danweiPO.sqlQuery(sql,classArg);
+		
+		return list;
+	}
 	/**
 	 * 如果需要联合查询的时候，可以将该方法放入到业务类中；
 	 * @param hql
@@ -124,20 +130,7 @@ public class DanweiBO {
 		List list = danweiPO.tuplesQuery(hql);	
 		return list;
 	}
-	/**
-	 * 
-	 *描述:对象关联查询（基于sql）
-	 * @param sql
-	 * @return List<Map>
-	 * 
-	 * @throws BSWException
-	 */
-	public List sqlQuery(String sql) throws BSWException {
-		danweiPO=new DanweiPO();
-		List list =danweiPO.sqlQuery(sql);
-		
-		return list;
-	}
+	
 
 	/**
 	 * dwr 专用
@@ -147,13 +140,13 @@ public class DanweiBO {
 	public Map getDanweis() throws BSWException{
 		Map map=new HashMap();
 		danweiPO=new DanweiPO();
-		List list =danweiPO.sqlQuery("select name from danwei");
+		List list =danweiPO.sqlQuery("select name from danwei",DanweiDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		DanweiDTO danweiDTO=null;
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			map.put(_map.get("NAME"),_map.get("NAME"));
+			danweiDTO=(DanweiDTO)it.next();
+			map.put(danweiDTO.getName(),danweiDTO.getName());
 		}
 		
 		
@@ -164,13 +157,13 @@ public class DanweiBO {
 	public Map getDanweiIds() throws BSWException{
 		Map map=new HashMap();
 		danweiPO=new DanweiPO();
-		List list =danweiPO.sqlQuery("select id,name from danwei where parent=0");
+		List list =danweiPO.sqlQuery("select id,name from danwei where parent=0",DanweiDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		DanweiDTO danweiDTO=null;
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			map.put(_map.get("ID"),_map.get("NAME"));
+			danweiDTO=(DanweiDTO)it.next();
+			map.put(danweiDTO.getId(),danweiDTO.getName());
 		}
 		
 		
@@ -179,13 +172,13 @@ public class DanweiBO {
 	public Map getBanzuIds(int parent) throws BSWException{
 		Map map=new HashMap();
 		danweiPO=new DanweiPO();
-		List list =danweiPO.sqlQuery("select id,name from danwei where parent>0 and parent="+parent);
+		List list =danweiPO.sqlQuery("select id,name from danwei where parent>0 and parent="+parent, DanweiDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		DanweiDTO danweiDTO=null;
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			map.put(_map.get("ID"),_map.get("NAME"));
+			danweiDTO=(DanweiDTO)it.next();
+			map.put(danweiDTO.getId(),danweiDTO.getName());
 		}
 		
 		
@@ -194,15 +187,15 @@ public class DanweiBO {
 	public List<DwrDTO> getDanweisList() throws BSWException{
 		List l=new ArrayList();
 		danweiPO=new DanweiPO();
-		List list =danweiPO.sqlQuery("select name from danwei where parent=0");
+		List list =danweiPO.sqlQuery("select name from danwei where parent=0",DanweiDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		DanweiDTO danweiDTO=null;
 		DwrDTO dwrDTO;
 		while(it.hasNext()){
-			_map=(Map)it.next();
+			danweiDTO=(DanweiDTO)it.next();
 			dwrDTO=new DwrDTO();
-			dwrDTO.setName((String)_map.get("NAME"));
+			dwrDTO.setName(danweiDTO.getName());
 			l.add(dwrDTO);
 		}
 		

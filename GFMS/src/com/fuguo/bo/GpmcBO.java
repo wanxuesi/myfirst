@@ -141,17 +141,17 @@ public class GpmcBO {
 		StockUtil sUtil = new StockUtil();
 		gpmcPO=new GpmcPO();
 		String results[]=new String[3];
-		List list =gpmcPO.sqlQuery("select zqdm,flag1 from gpmc where zqmc='"+zqmc+"'");
+		List list =gpmcPO.sqlQuery("select zqdm,flag1 from gpmc where zqmc='"+zqmc+"'",GpmcDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		GpmcDTO gpmcDTO=null;
 		if(it.hasNext()){
-			_map=(Map)it.next();
+			gpmcDTO=(GpmcDTO)it.next();
 			
-			results[0]=(String)_map.get("ZQDM");
+			results[0]=gpmcDTO.getZqdm();
 			Double dqj = sUtil.getDqjByZqdm(results[0]);//当前价；
 			String dqjStr = dqj.toString();
-			results[1]=(String)_map.get("FLAG1");
+			results[1]=gpmcDTO.getFlag1();
 			results[2]=dqjStr;
 			
 		}

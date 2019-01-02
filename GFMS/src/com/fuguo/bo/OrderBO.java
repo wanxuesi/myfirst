@@ -152,20 +152,20 @@ public List tuplesQuery(String hql) throws BSWException {
 }
 
 
-/**
- * 
- *描述:对象关联查询（基于sql）
- * @param sql
- * @return List<Map>
- * 
- * @throws BSWException
- */
-public List sqlQuery(String sql) throws BSWException {
-	orderPO=new OrderPO();
-	List list =orderPO.sqlQuery(sql);
-	
-	return list;
-}
+///**
+// * 
+// *描述:对象关联查询（基于sql）
+// * @param sql
+// * @return List<Map>
+// * 
+// * @throws BSWException
+// */
+//public List sqlQuery(String sql) throws BSWException {
+//	orderPO=new OrderPO();
+//	List list =orderPO.sqlQuery(sql);
+//	
+//	return list;
+//}
 
 
 public List sqlQuery(String sql,Class classArg) throws BSWException {
@@ -182,14 +182,14 @@ public void sqlUpdateOrDel(String sql) throws BSWException{
 public Map getOrders(String userID) throws BSWException{
 	Map<String,String> map=new HashMap<String,String>();
 	orderPO=new OrderPO();
-	List list =orderPO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+userID+"'");
+	List list =orderPO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+userID+"'", OrderDTO.class);
 	
 	//解析list<Map>；
 	Iterator it = list.iterator();
-	Map _map=null;
+	OrderDTO orderDTO=null;
 	while(it.hasNext()){
-		_map=(Map)it.next();
-		map.put((String)_map.get("ZQDM"),(String)_map.get("ZQDM"));
+		orderDTO=(OrderDTO)it.next();
+		map.put(orderDTO.getZqdm(),orderDTO.getZqdm());
 	}
 	
 	

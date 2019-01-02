@@ -66,7 +66,7 @@ public class SunQueryAction extends BaseAction {
 		
 		//复杂的sql还是用sql吧！
 		//sb.append("select * from weekplan where 1>0 ");
-		sb.append("select ID,FXR,DYDJ,FSSJ,CLSJ,TS,BDZ,JHZT,SBLX,SBMC,GZQXXX,CLGC,BANZU,FLAG6 from sun where 1>0 ");
+		sb.append("select * from sun where 1>0 ");
 		
 		DateUtil dateUtil=new DateUtil();
 
@@ -116,12 +116,12 @@ public class SunQueryAction extends BaseAction {
 		//调用业务逻辑层
 		SunBO tBO = new SunBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,SunDTO.class);
 		//生成符合要求的SunDTO数据
 //		解析list<Map>；
 		List listDTOs=new ArrayList();
 		Iterator it = list.iterator();
-		Map _map=null;
+		//SunDTO sunDTO=null;
 		SunDTO mDTO;
 		SimpleDateFormat   sdf   =   new   SimpleDateFormat("yyyy-MM-dd HH:mm");
 		//DateUtil dateUtil=new DateUtil();
@@ -136,31 +136,11 @@ public class SunQueryAction extends BaseAction {
 		String clsjWeek;
 		
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			mDTO=new SunDTO();
-			mDTO.setId((Integer)_map.get("ID"));
-			mDTO.setFxr((String)_map.get("FXR"));
-			mDTO.setFssj((Date)_map.get("FSSJ"));
-			mDTO.setClsj((Date)_map.get("CLSJ"));
-			mDTO.setTs((Integer)_map.get("TS"));
-			mDTO.setBdz((String)_map.get("BDZ"));
-			mDTO.setJhzt((String)_map.get("JHZT"));
+			mDTO=(SunDTO)it.next();
 			
-			mDTO.setSblx((String)_map.get("SBLX"));
-			mDTO.setSbmc((String)_map.get("SBMC"));
-			//mDTO.setSunxx((String)_map.get("GZQXXX"));
-			mDTO.setClgc((String)_map.get("CLGC"));
-			mDTO.setBanzu((String)_map.get("BANZU"));
-			
-			mDTO.setFlag6((String)_map.get("FLAG6"));
-			
-
-			mDTO.setBdz((String)_map.get("BDZ"));
-			if((String)_map.get("DYDJ")==null){
+			if(mDTO.getDydj()==null){
 				
 				mDTO.setDydj("");
-			}else{
-				mDTO.setDydj((String)_map.get("DYDJ"));
 			}
 
 			fssj=mDTO.getFssj();
@@ -182,7 +162,7 @@ public class SunQueryAction extends BaseAction {
 				mDTO.setClsjStr(clsjStr+clsjWeek);
 			}
 			
-//			对电压等级处理（去掉kV）
+
 			mDTO.setDydj(mDTO.getDydj().replace("kV",""));
 
 			listDTOs.add(mDTO);

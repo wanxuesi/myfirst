@@ -57,17 +57,17 @@ public class DataShowAction extends BaseAction {
 		String sql4 = "select sum(shuju) shuju from data where flag2='"+idStr+"' and (name='资金进出' or name='股息红利')"; 
 //		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4);
+		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
 		
 		Iterator it4 = list4.iterator();
-		Map _map4=null;
+		DataDTO _dataDTO=null;
 		
 		
 		
 		
 		if(it4.hasNext()){
-			_map4=(Map)it4.next();
-			KYZJ  =(Double)_map4.get("SHUJU");
+			_dataDTO=(DataDTO)it4.next();
+			KYZJ  =_dataDTO.getShuju();
 			if(KYZJ==null){
 				KYZJ=0.0;
 			}
@@ -81,17 +81,17 @@ public class DataShowAction extends BaseAction {
 		Double DQFE = 0.0;
 		String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null)"; 
 //		得到Map型的list5
-		List list5 = dBO.sqlQuery(sql5);
+		List list5 = dBO.sqlQuery(sql5,DataDTO.class);
 		
 		Iterator it5 = list5.iterator();
-		Map _map5=null;
+		DataDTO _dataDTO5=null;
 		
 		
 		
 		
 		if(it5.hasNext()){
-			_map5=(Map)it5.next();
-			DQFE  =(Double)_map5.get("FENE");
+			_dataDTO5=(DataDTO)it5.next();
+			DQFE  =_dataDTO5.getFene();
 			if(DQFE==null){
 				DQFE=0.0;
 			}
@@ -101,10 +101,10 @@ public class DataShowAction extends BaseAction {
 //		计算总市值
 		OrderBO uBO =new OrderBO();
 //		完全可以用hql
-		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'");
+		List listTMP = uBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj  from order where flag1='"+idStr+"'",OrderDTO.class);
 		
 		Iterator it = listTMP.iterator();
-		Map _map=null;
+		OrderDTO _orderDTO=null;
 		
 		StockUtil sUtil = new StockUtil();
 		double dqj = 0;
@@ -114,9 +114,9 @@ public class DataShowAction extends BaseAction {
 		double GPSZ=0;
 
 		while(it.hasNext()){
-			_map=(Map)it.next();
-			String zqdm = (String)_map.get("ZQDM");
-			cysl = (Integer)_map.get("CYSL");
+			_orderDTO=(OrderDTO)it.next();
+			String zqdm = _orderDTO.getZqdm();
+			cysl = _orderDTO.getCysl();
 			
 			dqj = sUtil.getDqjByZqdm(zqdm);//当前价；
 			dqsz = dqj*cysl;

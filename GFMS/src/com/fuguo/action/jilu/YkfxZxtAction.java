@@ -22,6 +22,9 @@ import com.fuguo.bo.DataBO;
 import com.fuguo.bo.JiluBO;
 import com.fuguo.bo.LsjgBO;
 import com.fuguo.bo.LsjgdateBO;
+import com.fuguo.dto.DataDTO;
+import com.fuguo.dto.JiluDTO;
+import com.fuguo.dto.LsjgDTO;
 import com.fuguo.dto.LsjgdateDTO;
 import com.fuguo.form.Query_Of_AllForm;
 import com.fuguo.util.DateUtil;
@@ -88,7 +91,7 @@ public class YkfxZxtAction extends BaseAction {
 		DataBO dBO  =new DataBO();
 		LsjgdateBO lsjgdateBO = new LsjgdateBO();
 		//复杂的sql还是用sql吧！
-		String sqlStart = "select zqdm,sum(qsje) sumqsje ,sum(cjsl) sumcjsl  from jilu  where   khdm='"+idStr+"' ";
+		String sqlStart = "select zqdm,sum(qsje) qsje ,sum(cjsl) cjsl  from jilu  where   khdm='"+idStr+"' ";
 		String sql="";
 		String sqlEnd =" group by zqdm";
 		for(int i=0;i<monthNumbs;i++){
@@ -123,10 +126,10 @@ public class YkfxZxtAction extends BaseAction {
 			
 			//System.out.println(sql);
 			//执行sql语句
-			List listJilu = jiluBO.sqlQuery(sql);
+			List listJilu = jiluBO.sqlQuery(sql,JiluDTO.class);
 			// 解析list<Map>；
 			Iterator itJilu = listJilu.iterator();
-			Map _map=null;
+			JiluDTO _jiluDTO=null;
 			String zqdm="";
 			double allSumQsje=0;
 			double sumQsje=0;
@@ -141,13 +144,11 @@ public class YkfxZxtAction extends BaseAction {
 			String sqlWhereDateTp=" and (date(date)<'"+lastDay+"') ";
 			
 			while(itJilu.hasNext()){
-				_map=(Map)itJilu.next();
-				zqdm = (String)_map.get("ZQDM");
-//				if(zqdm.equals("2582")){
-//					System.out.println(zqdm);
-//				}
-				sumQsje = (Double)_map.get("SUMQSJE");
-				sumCjsl = (Integer)_map.get("SUMCJSL");
+				_jiluDTO=(JiluDTO)itJilu.next();
+				zqdm = _jiluDTO.getZqdm();
+				System.out.println(zqdm);
+				sumQsje = _jiluDTO.getQsje();
+				sumCjsl = _jiluDTO.getCjsl();
 				
 				//将每一行的sumqsje 加到allSumQsje上；
 				allSumQsje+=sumQsje;
@@ -175,23 +176,23 @@ public class YkfxZxtAction extends BaseAction {
 					}else{
 						String lsjgSql ="select zqdm,date,close,fqyz from lsjg where zqdm='"+zqdm+"' and flag1!='tmp'   and date in(select max(date) maxdate  from lsjg where zqdm='"+zqdm+"' and flag1!='tmp'  "+sqlWhereDate+")"; 	
 //						执行sql语句
-						List listLsjg = lsjgBO.sqlQuery(lsjgSql);
+						List listLsjg = lsjgBO.sqlQuery(lsjgSql,LsjgDTO.class);
 						// 解析list<Map>；
 						Iterator itLsjg = listLsjg.iterator();
-						Map _mapLsjg=null;
+						//Map _mapLsjg=null;
 						close=0;
 						if(itLsjg.hasNext()){
-							_mapLsjg=(Map)itLsjg.next();
+							LsjgDTO _lsjgDTO=(LsjgDTO)itLsjg.next();
 							
 							
 							if(userZhanghaoLB.equals("实际")){								
 								//如果是实际账号，分析的时候，必须用收盘价；
-								close = (Double)_mapLsjg.get("CLOSE");
+								close = _lsjgDTO.getClose();
 							}
 							if(userZhanghaoLB.equals("虚拟")){								
 //								如果是虚拟账号，分析的时候，必须用adjClose；
-								fqyz = (Double)_mapLsjg.get("FQYZ");
-								close = (Double)_mapLsjg.get("CLOSE");
+								fqyz = _lsjgDTO.getFqyz();
+								close = _lsjgDTO.getClose();
 								//通过上面三个参数，获得到adjClose 再返回给close；
 								close = (close/maxFqyzNow)*fqyz;
 								
@@ -227,23 +228,23 @@ public class YkfxZxtAction extends BaseAction {
 							String lsjgSql2 ="select zqdm,date,close,fqyz from lsjg where zqdm='"+zqdm+"'  and date in(select max(date) maxdate  from lsjg where zqdm='"+zqdm+"' "+sqlWhereDateTp+")"; 	
 							//System.out.println(lsjgSql2);
 							//						执行sql语句
-							List listLsjg2 = lsjgBO.sqlQuery(lsjgSql2);
+							List listLsjg2 = lsjgBO.sqlQuery(lsjgSql2,LsjgDTO.class);
 							// 解析list<Map>；
 							Iterator itLsjg2 = listLsjg2.iterator();
-							Map _mapLsjg2=null;
+							//Map _mapLsjg2=null;
 							close=0;
 							if(itLsjg2.hasNext()){
-								_mapLsjg2=(Map)itLsjg2.next();
+								LsjgDTO _lsjgDTO2=(LsjgDTO)itLsjg2.next();
 								
 								
 								if(userZhanghaoLB.equals("实际")){								
 									//如果是实际账号，分析的时候，必须用收盘价；
-									close = (Double)_mapLsjg2.get("CLOSE");
+									close =_lsjgDTO2.getClose();
 								}
 								if(userZhanghaoLB.equals("虚拟")){								
 //									如果是虚拟账号，分析的时候，必须用adjClose；
-									fqyz = (Double)_mapLsjg2.get("FQYZ");
-									close = (Double)_mapLsjg2.get("CLOSE");
+									fqyz = _lsjgDTO2.getFqyz();
+									close = _lsjgDTO2.getClose();
 									//通过上面三个参数，获得到adjClose 再返回给close；
 									close = (close/maxFqyzNow)*fqyz;
 									
@@ -271,17 +272,17 @@ public class YkfxZxtAction extends BaseAction {
 			
 			
 			
-			List list4 = dBO.sqlQuery(sql4);
+List list4 = dBO.sqlQuery(sql4,DataDTO.class);
 			
 			Iterator it4 = list4.iterator();
-			Map _map4=null;
+			DataDTO _dataDTO=null;
 			
 			
 			
 			
 			if(it4.hasNext()){
-				_map4=(Map)it4.next();
-				GXHL  =(Double)_map4.get("SHUJU");
+				_dataDTO=(DataDTO)it4.next();
+				GXHL  =_dataDTO.getShuju();
 				if(GXHL==null){
 					GXHL=0.0;
 				}

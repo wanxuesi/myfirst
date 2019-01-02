@@ -10,6 +10,7 @@ import bsw.base.BaseDTO;
 import bsw.fwk.PageRoll;
 import bsw.tools.exception.BSWException;
 
+import com.fuguo.dto.GpmcDTO;
 import com.fuguo.dto.MygpmcDTO;
 import com.fuguo.po.MygpmcPO;
 import com.fuguo.util.StockUtil;
@@ -144,17 +145,17 @@ public class MygpmcBO {
 		StockUtil sUtil = new StockUtil();
 		mygpmcPO=new MygpmcPO();
 		String results[]=new String[3];
-		List list =mygpmcPO.sqlQuery("select zqdm,flag1 from gpmc where zqmc='"+zqmc+"'");
+		List list =mygpmcPO.sqlQuery("select zqdm,flag1 from gpmc where zqmc='"+zqmc+"'", GpmcDTO.class);
 		//解析list<Map>；
 		Iterator it = list.iterator();
-		Map _map=null;
+		GpmcDTO _gpmcDTO=null;
 		if(it.hasNext()){
-			_map=(Map)it.next();
+			_gpmcDTO=(GpmcDTO)it.next();
 			
-			results[0]=(String)_map.get("ZQDM");
+			results[0]=_gpmcDTO.getZqdm();
 			//Double dqj = sUtil.getDqjByZqdm(results[0]);//当前价；
 			//String dqjStr = dqj.toString();
-			results[1]=(String)_map.get("FLAG1");
+			results[1]=_gpmcDTO.getFlag1();
 			//results[2]=dqjStr;
 			
 		}
@@ -163,9 +164,9 @@ public class MygpmcBO {
 		return results;
 	}
 	
-	public List sqlQuery(String sql) throws BSWException {
+	public List sqlQuery(String sql,Class classArg) throws BSWException {
 		mygpmcPO=new MygpmcPO();
-		List list =mygpmcPO.sqlQuery(sql);
+		List list =mygpmcPO.sqlQuery(sql,classArg);
 		
 		return list;
 	}
@@ -177,7 +178,7 @@ public class MygpmcBO {
 		
 		   String sql ="select zqdm from mygpmc where zqdm='"+zqdm+"' and flag2='"+flag2+"'";
 		   
-		   List listLsjg = sqlQuery(sql);  
+		   List listLsjg = sqlQuery(sql,MygpmcDTO.class);  
 		   if(listLsjg.size()<1){
 			   result=false;
 		   }

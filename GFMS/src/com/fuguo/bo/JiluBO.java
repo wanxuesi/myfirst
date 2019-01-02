@@ -149,20 +149,7 @@ public List tuplesQuery(String hql) throws BSWException {
 }
 
 
-/**
- * 
- *描述:对象关联查询（基于sql）
- * @param sql
- * @return List<Map>
- * 
- * @throws BSWException
- */
-public List sqlQuery(String sql) throws BSWException {
-	jiluPO=new JiluPO();
-	List list =jiluPO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 
 public List sqlQuery(String sql,Class classArg) throws BSWException {
@@ -254,8 +241,9 @@ public void logic(JiluDTO jiluDTO,String userIdStr,BaseUserContext baseUserConte
 	
 	ListBO lBO = new ListBO();
 	ListDTO lDTO = new ListDTO();
-	List list =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+userIdStr+"' and   zqdm='"+zqdm+"'");
-	List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+userIdStr+"' and   zqdm='"+zqdm+"' and jifl='"+jifl+"'");
+	List list =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+userIdStr+"' and   zqdm='"+zqdm+"'" ,OrderDTO.class);
+	
+	List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+userIdStr+"' and   zqdm='"+zqdm+"' and jifl='"+jifl+"'" ,ListDTO.class);
 	
 	
 	if(list.size()==0){
@@ -338,17 +326,17 @@ public void logic(JiluDTO jiluDTO,String userIdStr,BaseUserContext baseUserConte
 			
 			Iterator it = list.iterator();
 			
-			Map _map=null;
+			OrderDTO _orderDTO=null;
 			Integer cysl=0;
 			double cbj=0;
 			Integer id=0;
 			if(it.hasNext()){
-				_map=(Map)it.next();
-				id = (Integer)_map.get("ID");
-				cysl = (Integer)_map.get("CYSL");//原来的持有数量
+				_orderDTO=(OrderDTO)it.next();
+				id = _orderDTO.getId();
+				cysl = _orderDTO.getCysl();//原来的持有数量
 				
-				cbj  =(Double)_map.get("CBJ");//原来的成本价
-				//cjjes = (Double)_map.get("CJJES");
+				cbj  =_orderDTO.getCbj();//原来的成本价
+				
 			}
 			
 			
@@ -379,14 +367,14 @@ public void logic(JiluDTO jiluDTO,String userIdStr,BaseUserContext baseUserConte
 				
 			}else{
 //				一种是有该jifl；
-				Map _maplist=null;
+				ListDTO _listDTO=null;
 				Integer cysllist=0;
 				Integer idList = 0;
 				
 				if(itlist.hasNext()){
-					_maplist=(Map)itlist.next();
-					idList = (Integer)_maplist.get("ID");
-					cysllist = (Integer)_maplist.get("CYSL");//原来的持有数量
+					_listDTO=(ListDTO)itlist.next();
+					idList = _listDTO.getId();
+					cysllist = _listDTO.getCysl();//原来的持有数量
 					
 	
 				}
@@ -544,8 +532,8 @@ public void logicDelete(JiluDTO jiluDTO,String userIdStr) throws BSWException{
 		
 		ListBO lBO = new ListBO();
 		ListDTO lDTO = new ListDTO();
-		List listorder =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+userIdStr+"' and  zqdm='"+zqdm+"'");
-		List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+userIdStr+"' and  zqdm='"+zqdm+"' and jifl='"+jifl+"'");
+		List listorder =oBO.sqlQuery("select id,zqdm,cysl,cbj from order where  flag1='"+userIdStr+"' and  zqdm='"+zqdm+"'",OrderDTO.class);
+		List listlist =lBO.sqlQuery("select id,zqdm,cysl,jifl from list where  flag1='"+userIdStr+"' and  zqdm='"+zqdm+"' and jifl='"+jifl+"'",ListDTO.class);
 		
 		//如果order里灭有记录；
 		if(listorder.size()==0){
@@ -590,16 +578,16 @@ public void logicDelete(JiluDTO jiluDTO,String userIdStr) throws BSWException{
 				
 				Iterator it = listorder.iterator();
 				
-				Map _map=null;
+				OrderDTO _orderDTO=null;
 				Integer cysl=0;
 				double cbj=0;
 				Integer id=0;
 				if(it.hasNext()){
-					_map=(Map)it.next();
-					id = (Integer)_map.get("ID");
-					cysl = (Integer)_map.get("CYSL");//原来的持有数量
+					_orderDTO=(OrderDTO)it.next();
+					id = _orderDTO.getId();
+					cysl = _orderDTO.getCysl();//原来的持有数量
 					
-					cbj  =(Double)_map.get("CBJ");//原来的成本价
+					cbj  =_orderDTO.getCbj();//原来的成本价
 					//cjjes = (Double)_map.get("CJJES");
 				}
 				
@@ -632,14 +620,14 @@ public void logicDelete(JiluDTO jiluDTO,String userIdStr) throws BSWException{
 					
 				}else{
 //					一种是有该jifl；
-					Map _maplist=null;
+					ListDTO _list=null;
 					Integer cysllist=0;
 					Integer idList = 0;
 					
 					if(itlist.hasNext()){
-						_maplist=(Map)itlist.next();
-						idList = (Integer)_maplist.get("ID");
-						cysllist = (Integer)_maplist.get("CYSL");//原来的持有数量
+						_list=(ListDTO)itlist.next();
+						idList = _list.getId();
+						cysllist = _list.getCysl();//原来的持有数量
 						
 		
 					}
@@ -673,18 +661,20 @@ public void logicDelete(JiluDTO jiluDTO,String userIdStr) throws BSWException{
 				
 				Iterator it = listorder.iterator();
 				
-				Map _map=null;
+				OrderDTO _orderDTO=null;
 				Integer cysl=0;
 				double cbj=0;
 				Integer idOrder= 0;
 				if(it.hasNext()){
-					_map=(Map)it.next();
-					idOrder =  (Integer)_map.get("ID");
-					cysl = (Integer)_map.get("CYSL");//原来的持有数量
+					_orderDTO=(OrderDTO)it.next();
+					idOrder = _orderDTO.getId();
+					cysl = _orderDTO.getCysl();//原来的持有数量
 					
-					cbj  =(Double)_map.get("CBJ");//原来的成本价
+					cbj  =_orderDTO.getCbj();//原来的成本价
 					//cjjes = (Double)_map.get("CJJES");
 				}
+				
+								
 				
 				oDTO.setId(idOrder);
 //				要算下卖出后叠加后的持有数量；。
@@ -708,16 +698,18 @@ public void logicDelete(JiluDTO jiluDTO,String userIdStr) throws BSWException{
 				Iterator itlist = listlist.iterator();
 
 //				肯定有该jifl；
-				Map _maplist=null;
+				ListDTO _list=null;
 				Integer cysllist=0;
 				Integer idList=0;
 				if(itlist.hasNext()){
-					_maplist=(Map)itlist.next();
-					idList = (Integer)_maplist.get("ID");
-					cysllist = (Integer)_maplist.get("CYSL");//原来的持有数量
-					
+					_list=(ListDTO)itlist.next();
+					idList = _list.getId();
+					cysllist = _list.getCysl();//原来的持有数量
 
 				}
+								
+				
+				
 				
 				lDTO.setId(idList);
 //				要算下叠加后的持有数量；。

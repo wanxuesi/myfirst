@@ -214,12 +214,7 @@ public List tuplesQuery(String hql) throws BSWException {
  * 
  * @throws BSWException
  */
-public List sqlQuery(String sql) throws BSWException {
-	listPO=new ListPO();
-	List list =listPO.sqlQuery(sql);
-	
-	return list;
-}
+
 
 
 public List sqlQuery(String sql,Class classArg) throws BSWException {

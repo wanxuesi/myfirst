@@ -156,12 +156,6 @@ public List sqlQuery(String sql,Class classArg) throws BSWException {
 	return list;
 }
 
-public List sqlQuery(String sql) throws BSWException {
-	lsjgPO=new LsjgPO();
-	List list =lsjgPO.sqlQuery(sql);
-	
-	return list;
-}
 
 
 
@@ -266,7 +260,7 @@ public boolean isHave(LsjgDTO lsjgDTO)throws BSWException{
 //	*****需要通过日期和证券代码查找，如果已经存在，则不需要添加
 	   String sql = "select * from lsjg where zqdm='"+zqdm+"'and date(date)='"+dateSql+"'";
 	   
-	   List listLsjg = sqlQuery(sql);  
+	   List listLsjg = sqlQuery(sql,LsjgDTO.class);  
 	   if(listLsjg.size()<1){
 		   result=false;
 	   }
@@ -283,12 +277,12 @@ public double getMaxFqyz(String zqdm,Date start_rqUtilDate)throws BSWException{
 	
 	   String sql = "select max(fqyz) as FQYZ from lsjg where zqdm='"+zqdm+"' and flag1!='tmp'  and  date(date)>='"+dateSql+"'";
 	   
-	   List listLsjg = sqlQuery(sql);  
+	   List listLsjg = sqlQuery(sql,LsjgDTO.class);  
 	   if(listLsjg.size()<1){
 		  return maxFqyz;
 	   }else{
-		   Map map = (Map)listLsjg.get(0);
-		   maxFqyz = (Double)map.get("FQYZ");
+		   LsjgDTO lsjgDTO = (LsjgDTO)listLsjg.get(0);
+		   maxFqyz = lsjgDTO.getFqyz();
 		   if(maxFqyz<=1){
 			   maxFqyz=1.0d; 
 		   }

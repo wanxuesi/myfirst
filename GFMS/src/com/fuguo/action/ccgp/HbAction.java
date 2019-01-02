@@ -53,20 +53,20 @@ public class HbAction extends BaseAction {
 		
 		//得出该股票的清算金额qsjes
 		
-		String sql = "select sum(qsje) qsjes from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"'"; 
+		String sql = "select sum(qsje) qsje from jilu where  khdm='"+idStr+"' and zqdm='"+zqdm+"'"; 
 		
 //		调用业务逻辑层
 		JiluBO tBO = new JiluBO();
 		//得到Map型的list
-		List list = tBO.sqlQuery(sql);
+		List list = tBO.sqlQuery(sql,JiluDTO.class);
 		List listDTOs=new ArrayList();
 		Iterator it = list.iterator();
-		Map _map=null;
+		
 		JiluDTO mDTO;
 		if(it.hasNext()){
-			_map=(Map)it.next();
+			mDTO=(JiluDTO)it.next();
 						
-			qsjes = (Double)_map.get("QSJES");
+			qsjes = mDTO.getQsje();
 			
 		}
 		
@@ -78,7 +78,7 @@ public class HbAction extends BaseAction {
 		OrderDTO oDTO = new OrderDTO();
 		OrderBO oBO = new OrderBO();
 		//完全可以用hql。
-		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'");
+		List listOrder =oBO.sqlQuery("select id,zqdm,zqmc,cysl,cbj from order where   flag1='"+idStr+"' and zqdm='"+zqdm+"'",OrderDTO.class);
 		
 //		说明有该记录，直接在orderUpdate;
 		//oDTO.setZqdm(zqdm);
@@ -94,11 +94,11 @@ public class HbAction extends BaseAction {
 		double xnQsje=0;
 		double newCbj=0;
 		if(itOrder.hasNext()){
-			_map=(Map)itOrder.next();
-			id = (Integer)_map.get("ID");
-			cysl = (Integer)_map.get("CYSL");//原来的持有数量
-			zqmc = (String)_map.get("ZQMC");
-			cbj  =(Double)_map.get("CBJ");//原来的成本价
+			OrderDTO orderDTO=(OrderDTO)itOrder.next();
+			id = orderDTO.getId();
+			cysl = orderDTO.getCysl();//原来的持有数量
+			zqmc = orderDTO.getZqmc();
+			cbj  =orderDTO.getCbj();//原来的成本价
 			//cjjes = (Double)_map.get("CJJES");
 		}
 		
