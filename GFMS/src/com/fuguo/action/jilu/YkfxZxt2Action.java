@@ -259,28 +259,15 @@ public class YkfxZxt2Action extends BaseAction {
 			
 			
 //			获取该时间前的股息红利总和；
-			Double GXHL = 0.0;  //股票红利
-			String sqlwhereGXHL = "and date(date)<='"+first_lastDay+"' ";
-			String sql4 = "select sum(shuju) shuju from data where name='股息红利' and  flag2='"+idStr+"' "+sqlwhereGXHL; 
-//			得到Map型的list4
 			
 			
+			String dateStr = sdf.format(first_lastDay);
 			
-			List list4 = dBO.sqlQuery(sql4,DataDTO.class);
-			
-			Iterator it4 = list4.iterator();
-			DataDTO _dataDTO=null;
+  			Double GXHL = dBO.getGXHL(idStr,dateStr);
 			
 			
 			
 			
-			if(it4.hasNext()){
-				_dataDTO=(DataDTO)it4.next();
-				GXHL  =_dataDTO.getShuju();
-				if(GXHL==null){
-					GXHL=0.0;
-				}
-			}
 			//将查询结果放入到monthValue[i]中；
 			dateValue[i]=allSumQsje+sumCjsl_CY_Close+GXHL;
 			

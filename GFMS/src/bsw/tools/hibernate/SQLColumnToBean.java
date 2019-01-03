@@ -33,7 +33,7 @@ public class SQLColumnToBean implements ResultTransformer {
 				PropertyAccessorFactory.getPropertyAccessor("field") });
 	}
  
-	// 结果转换时，HIBERNATE调用此方法
+	// 结果转换时，hibernate调用此方法
 	public Object transformTuple(Object[] tuple, String[] aliases) {
 		Object result = null;
  

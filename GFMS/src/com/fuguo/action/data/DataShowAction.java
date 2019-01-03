@@ -53,49 +53,13 @@ public class DataShowAction extends BaseAction {
 		
 		//获取当前可用资金；
 //		获取股息红利总和；
-		Double KYZJ = 0.0;
-		String sql4 = "select sum(shuju) shuju from data where flag2='"+idStr+"' and (name='资金进出' or name='股息红利')"; 
-//		得到Map型的list4
-		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
+		Double KYZJ  = mBO.getKYZJ(idStr);;
+
+			
 		
-		Iterator it4 = list4.iterator();
-		DataDTO _dataDTO=null;
-		
-		
-		
-		
-		if(it4.hasNext()){
-			_dataDTO=(DataDTO)it4.next();
-			KYZJ  =_dataDTO.getShuju();
-			if(KYZJ==null){
-				KYZJ=0.0;
-			}
-		}
-		
-		
-		
-		
-		//获取当前份额数；
-		
-		Double DQFE = 0.0;
-		String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null)"; 
-//		得到Map型的list5
-		List list5 = dBO.sqlQuery(sql5,DataDTO.class);
-		
-		Iterator it5 = list5.iterator();
-		DataDTO _dataDTO5=null;
-		
-		
-		
-		
-		if(it5.hasNext()){
-			_dataDTO5=(DataDTO)it5.next();
-			DQFE  =_dataDTO5.getFene();
-			if(DQFE==null){
-				DQFE=0.0;
-			}
-		}
+//  	    获取当前份额总数；
+	  								
+		Double DQFE = mBO.getDQFE(idStr);
 		
 		
 //		计算总市值

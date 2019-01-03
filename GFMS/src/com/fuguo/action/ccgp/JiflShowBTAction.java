@@ -88,26 +88,8 @@ public class JiflShowBTAction extends BaseAction {
 		
 		//获取当前可用资金；
 //		获取股息红利总和；
-		Double KYZJ = 0.0;
-		String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
-//		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
-		
-		
-		Iterator it4 = list4.iterator();
-		DataDTO dataDTO=null;
-		
-		
-		
-		
-		if(it4.hasNext()){
-			dataDTO=(DataDTO)it4.next();
-			KYZJ  =dataDTO.getShuju();
-			if(KYZJ==null){
-				KYZJ=0.0;
-			}
-		}
+		Double KYZJ =dBO.getKYZJ(idStr);
 		
 		
 		

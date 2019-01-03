@@ -287,25 +287,12 @@ public class DataJingzhiZxtAction extends BaseAction {
 //			//获取该时间前的份额总和DQFE；
 			
 			// 获取当前份额总数；
-			String sqlwhereDQFE = "and date(date)<='"+first_lastDay+"' ";
-	  			Double DQFE = 0.0;
-	  			String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null) "+sqlwhereDQFE; 
-//	  			得到Map型的list5
-	  			List list5 =dBO.sqlQuery(sql5,DataDTO.class);
+				
+				DataBO dataBO = new DataBO();
+				String dateStr = sdf.format(first_lastDay);
+				
+	  			Double DQFE = dataBO.getDQFE(idStr,dateStr);
 	  			
-	  			Iterator it5 = list5.iterator();
-	  			DataDTO _dataDTO=null;
-	  			
-	  			
-	  			
-	  			
-	  			if(it5.hasNext()){
-	  				_dataDTO=(DataDTO)it5.next();
-	  				DQFE  =_dataDTO.getFene();
-	  				if(DQFE==null){
-	  					DQFE=0.0;
-	  				}
-	  			}
 	  			
 	  			//放入到FenEValue[i]中；
 	  			FenEValue[i]=DQFE;				  			

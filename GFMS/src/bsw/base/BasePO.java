@@ -117,18 +117,7 @@ public abstract class BasePO {
 	
 	
 	
-//	/**
-//	 * 
-//	 *描述:对象关联查询（基于sql）
-//	 * @param sql
-//	 * @return  List 带属性名的map（注意大小写）因为没有做映射配置。
-//	 * 
-//	 * @throws BSWException
-//	 */
-//	public List sqlQuery(String sql) throws BSWException {
-//		List list =hibernateUtil.sqlQuery(sql);
-//		return list;
-//	}
+
 	/**
 	 * 
 	 *描述:对象关联查询（基于sql）db2有问题(db2返回的全部是大写的字段，因此，无法将查询的字段自动映射到java类上)；

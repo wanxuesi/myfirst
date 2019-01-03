@@ -67,25 +67,8 @@ public class DataAddAction extends BaseAction {
 	    	  //计算需要增减的份额；
 		      
 //	  	    获取当前份额总数；
-	    	  String sqlwhereDQFE = "and date(date)<='"+first_lastDay+"' ";
-	  			Double DQFE = 0.0;
-	  			String sql5 = "select sum(fene) fene from data where flag2='"+flag2+"' and name='资金进出' and (flag1='' or flag1 is Null)"; 
-//	  			得到Map型的list5
-	  			List list5 = tBO.sqlQuery(sql5,DataDTO.class);
-	  			
-	  			Iterator it5 = list5.iterator();
-	  			DataDTO dataDTO=null;
-	  			
-	  			
-	  			
-	  			
-	  			if(it5.hasNext()){
-	  				dataDTO=(DataDTO)it5.next();
-	  				DQFE  =dataDTO.getFene();
-	  				if(DQFE==null){
-	  					DQFE=0.0;
-	  				}
-	  			}
+	    	  	DataBO dataBO = new DataBO();								
+	  			Double DQFE = dataBO.getDQFE(flag2,dateStr);
 	  	      
 	  	      
 	  	     //获取当前股票市值GPSZ；
@@ -117,26 +100,8 @@ public class DataAddAction extends BaseAction {
 	  		//获取可用资金
 	  			//获取当前可用资金；
 //	  			获取股息红利总和；
-	  			Double KYZJ = 0.0;
-	  			String sql4 = "select sum(shuju) shuju from data where flag2='"+flag2+"' and (name='资金进出' or name='股息红利')"; 
-//	  			得到Map型的list4
 	  			DataBO dBO  =new DataBO();
-	  			List list4 = dBO.sqlQuery(sql4,DataDTO.class);
-	  			
-	  			
-	  			Iterator it4 = list4.iterator();
-	  			DataDTO _dataDTO=null;
-	  			
-	  			
-	  			
-	  			
-	  			if(it4.hasNext()){
-	  				_dataDTO=(DataDTO)it4.next();
-	  				KYZJ  =_dataDTO.getShuju();
-	  				if(KYZJ==null){
-	  					KYZJ=0.0;
-	  				}
-	  			}	
+	  			Double KYZJ =dBO.getKYZJ(flag2);
 	  			
 	  			double fene = (shuju/(GPSZ+KYZJ))*DQFE;
 	  	      

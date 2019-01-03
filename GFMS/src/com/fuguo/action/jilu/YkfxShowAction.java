@@ -176,27 +176,10 @@ public class YkfxShowAction extends BaseAction {
 		}
 		
 		
-//		获取股息红利总和；
-		Double GXHL = 0.0;
-		String sql4 = "select sum(shuju) shuju from data where name='股息红利' and  flag2='"+idStr+"'"; 
-//		得到Map型的list4
-		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
-		
-		Iterator it4 = list4.iterator();
-		
-		
-		
-		
-		
-		if(it4.hasNext()){
-			DataDTO _dataDTO=(DataDTO)it4.next();
-			GXHL  =_dataDTO.getShuju();
-			if(GXHL==null){
-				GXHL=0.0;
-			}
-		}
-		
+		//		获取股息红利总和；
+
+		DataBO dBO = new DataBO();
+		Double GXHL = dBO.getGXHL(idStr);
 		
 		
 		

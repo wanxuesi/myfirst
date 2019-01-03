@@ -145,25 +145,9 @@ public class OrderShowAction extends BaseAction {
 		
 		//获取当前可用资金；
 //		获取股息红利总和；
-		Double KYZJ = 0.0;
-		String sql4 = "select sum(shuju) shuju from data where  flag2='"+idStr+"' and  (name='资金进出' or name='股息红利')"; 
-//		得到Map型的list4
 		DataBO dBO  =new DataBO();
-		List list4 = dBO.sqlQuery(sql4,DataDTO.class);
+		Double KYZJ =dBO.getKYZJ(idStr);
 		
-		Iterator it4 = list4.iterator();
-		DataDTO _dataDTO4=null;
-		
-		
-		
-		
-		if(it4.hasNext()){
-			_dataDTO4=(DataDTO)it4.next();
-			KYZJ  =_dataDTO4.getShuju();
-			if(KYZJ==null){
-				KYZJ=0.0;
-			}
-		}
 		
 		
 		if(onoff==1){

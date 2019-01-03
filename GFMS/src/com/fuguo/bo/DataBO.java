@@ -252,6 +252,134 @@ public Double getKYZJ(String idStr,String dateStr) throws BSWException{
 	
 	return KYZJ;
 }
+
+/**
+ * //获取当前前的份额总和DQFE；
+ * 获取当前份额总数；
+ * @param idStr
+ * @return
+ * @throws BSWException
+ */
+
+public Double getDQFE(String idStr) throws BSWException{
+	
+		Double DQFE = 0.0;
+		String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null) "; 
+//		得到Map型的list5
+		List list5 =sqlQuery(sql5,DataDTO.class);
+		
+		Iterator it5 = list5.iterator();
+		DataDTO _dataDTO=null;
+		
+		
+		
+		
+		if(it5.hasNext()){
+			_dataDTO=(DataDTO)it5.next();
+			DQFE  =_dataDTO.getFene();
+			if(DQFE==null){
+				DQFE=0.0;
+			}
+		}
+	
+	return DQFE;
+}
+
+
+/**
+ * //获取该时间前的份额总和DQFE；
+ * 获取当前份额总数；
+ * @param idStr,dateStr
+ * @return
+ * @throws BSWException
+ */
+
+public Double getDQFE(String idStr,String dateStr) throws BSWException{
+	String sqlwhereDQFE = "and date(date)<='"+dateStr+"' ";
+		Double DQFE = 0.0;
+		String sql5 = "select sum(fene) fene from data where flag2='"+idStr+"' and name='资金进出' and (flag1='' or flag1 is Null) "+sqlwhereDQFE; 
+//		得到Map型的list5
+		List list5 =sqlQuery(sql5,DataDTO.class);
+		
+		Iterator it5 = list5.iterator();
+		DataDTO _dataDTO=null;
+		
+		
+		
+		
+		if(it5.hasNext()){
+			_dataDTO=(DataDTO)it5.next();
+			DQFE  =_dataDTO.getFene();
+			if(DQFE==null){
+				DQFE=0.0;
+			}
+		}
+	
+	return DQFE;
+}
+
+/**
+ * //			获取该时间前的股息红利总和；
+ * @param idStr
+ * @return
+ * @throws BSWException
+ */
+public Double getGXHL(String idStr,String dateStr) throws BSWException{
+	
+	Double GXHL = 0.0;
+	String sqlwhereGXHL = "and date(date)<='"+dateStr+"' ";
+	String sql4 = "select sum(shuju) shuju from data where name='股息红利' and  flag2='"+idStr+"' "+sqlwhereGXHL; 
+//	得到Map型的list4
+	
+	
+	
+	List list4 = sqlQuery(sql4,DataDTO.class);
+	
+	Iterator it4 = list4.iterator();
+	DataDTO _dataDTO=null;
+	
+	
+	
+	
+	if(it4.hasNext()){
+		_dataDTO=(DataDTO)it4.next();
+		GXHL  =_dataDTO.getShuju();
+		if(GXHL==null){
+			GXHL=0.0;
+		}
+	}
+
+return GXHL;
+}
+
+public Double getGXHL(String idStr) throws BSWException{
+	
+	Double GXHL = 0.0;
+	
+	String sql4 = "select sum(shuju) shuju from data where name='股息红利' and  flag2='"+idStr+"' "; 
+//	得到Map型的list4
+	
+	
+	
+	List list4 = sqlQuery(sql4,DataDTO.class);
+	
+	Iterator it4 = list4.iterator();
+	DataDTO _dataDTO=null;
+	
+	
+	
+	
+	if(it4.hasNext()){
+		_dataDTO=(DataDTO)it4.next();
+		GXHL  =_dataDTO.getShuju();
+		if(GXHL==null){
+			GXHL=0.0;
+		}
+	}
+
+return GXHL;
+}
+
 public static void main(String[] args)throws BSWException{
 	DataBO dBO=new DataBO();
 	
